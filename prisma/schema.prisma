@@ -20,10 +20,44 @@ model Conductores {
   apellido String @db.VarChar(75)
   disponibilidad Disponibilidad @relation(fields: [disponibilidadId], references: [id])
   disponibilidadId Int 
+  ubicacionLatitud Decimal? @db.Decimal(10,7)
+  ubicacionLongitud Decimal? @db.Decimal(10,7)
+  Viajes Viajes[]
 }
+model Viajes {
+  id Int @default(autoincrement()) @id
+  pasajero Pasajeros @relation(fields: [pasajeroId], references: [id])
+  pasajeroId Int
+  conductor Conductores @relation(fields: [conductorId], references: [id])
+  conductorId Int
+  status StatusViajes @default(EN_PROCESO)
+  latitudDesde Decimal @db.Decimal(10,7)
+  longitudDesde Decimal @db.Decimal(10,7)
+  latitudHasta Decimal @db.Decimal(10,7)
+  longitudHasta Decimal @db.Decimal(10,7)  
+}
+
+model Pasajeros {
+  id Int @default(autoincrement()) @id
+  nombre String @db.VarChar(75)
+  apellido String @db.VarChar(75)
+  status StatusDisponibilidad @default(ACTIVO) 
+  Viajes Viajes[]
+}
+
 
 model Disponibilidad {
   id Int @default(autoincrement()) @id
   descripcion String @db.VarChar(250)
   conductores Conductores[]
+}
+
+enum StatusDisponibilidad {
+  ACTIVO
+  INACTIVO
+}
+
+enum StatusViajes {
+  EN_PROCESO
+  TERMINADO
 }

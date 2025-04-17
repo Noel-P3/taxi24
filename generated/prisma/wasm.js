@@ -121,7 +121,27 @@ exports.Prisma.ConductoresScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   apellido: 'apellido',
-  disponibilidadId: 'disponibilidadId'
+  disponibilidadId: 'disponibilidadId',
+  ubicacionLatitud: 'ubicacionLatitud',
+  ubicacionLongitud: 'ubicacionLongitud'
+};
+
+exports.Prisma.ViajesScalarFieldEnum = {
+  id: 'id',
+  pasajeroId: 'pasajeroId',
+  conductorId: 'conductorId',
+  status: 'status',
+  latitudDesde: 'latitudDesde',
+  longitudDesde: 'longitudDesde',
+  latitudHasta: 'latitudHasta',
+  longitudHasta: 'longitudHasta'
+};
+
+exports.Prisma.PasajerosScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  apellido: 'apellido',
+  status: 'status'
 };
 
 exports.Prisma.DisponibilidadScalarFieldEnum = {
@@ -139,9 +159,24 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.StatusViajes = exports.$Enums.StatusViajes = {
+  EN_PROCESO: 'EN_PROCESO',
+  TERMINADO: 'TERMINADO'
+};
+
+exports.StatusDisponibilidad = exports.$Enums.StatusDisponibilidad = {
+  ACTIVO: 'ACTIVO',
+  INACTIVO: 'INACTIVO'
+};
 
 exports.Prisma.ModelName = {
   Conductores: 'Conductores',
+  Viajes: 'Viajes',
+  Pasajeros: 'Pasajeros',
   Disponibilidad: 'Disponibilidad'
 };
 
