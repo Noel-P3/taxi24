@@ -1,98 +1,101 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Taxi24 API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Taxi24 es una API diseñada para gestionar flotas de conductores y pasajeros, permitiendo la creación de viajes, la asignación de conductores y la consulta de datos relacionados.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Características
 
-## Description
+- Gestión de conductores y pasajeros.
+- Creación y finalización de viajes.
+- Cálculo de conductores más cercanos a un pasajero.
+- Uso de Prisma como ORM para la interacción con la base de datos.
+- Documentación de la API generada automáticamente con Swagger.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## Requisitos previos
+
+Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
+
+- [Node.js](https://nodejs.org/) (versión 16 o superior)
+- [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
+- [PostgreSQL](https://www.postgresql.org/) (o Docker para ejecutar la base de datos en un contenedor)
+
+---
+
+## Configuración inicial
+
+1. **Clonar el repositorio**:
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   cd taxi24
+   ```
+
+2. **Instalar dependencias**:
+   ```bash
+   npm install
+   ```
+
+3. **Configurar el archivo .env:** 
+   Crea un archivo .env en la raíz del proyecto con las siguientes variables de entorno:
+   ```
+   DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/taxi24"
+   PORT=3000
+   ```
+
+4. **Generar el cliente Prisma**:
+   ```bash
+   npx prisma generate
+   ```
+
+5. **Ejecutar las migraciones de Prisma**:
+   ```bash
+   npx prisma migrate dev
+   ```
+
+6. **Ejecutar los archivos .sql en tu base de datos de Postgress**
+  ```bash
+  prisma/
+  ├── sql/ # Scripts de inicializacion de data
+  ```
+
+7. **Iniciar el servidor en modo desarrollo**:
+   ```bash
+   npm run start:dev
+   ```
+
+8. **Construir el proyecto**:
+   ```bash
+   npm run build
+   ```
+
+9. **Iniciar el servidor en modo producción**:
+   ```bash
+   npm run start:prod
+   ```
+
+---
+
+## Estructura del proyecto
 
 ```bash
-$ npm install
+src/
+├── conductor/         # Módulo para la gestión de conductores
+├── pasajeros/         # Módulo para la gestión de pasajeros
+├── viajes/            # Módulo para la gestión de viajes
+├── prisma/            # Configuración de Prisma
+├── main.ts            # Punto de entrada de la aplicación
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## URL de la API
 
-# watch mode
-$ npm run start:dev
+La API estará disponible en la siguiente URL:
 
-# production mode
-$ npm run start:prod
-```
+http://localhost:3000/api
 
-## Run tests
+## Notas adicionales
 
-```bash
-# unit tests
-$ npm run test
+Base de datos: Este proyecto utiliza PostgreSQL como base de datos. Asegúrate de que esté configurada y en ejecución antes de iniciar la aplicación.
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Prisma: Prisma se utiliza como ORM para interactuar con la base de datos. Puedes personalizar el esquema en schema.prisma.
