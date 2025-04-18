@@ -26,7 +26,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 
 1. **Clonar el repositorio**:
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/Noel-P3/taxi24.git
    cd taxi24
    ```
 
@@ -38,7 +38,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 3. **Configurar el archivo .env:** 
    Crea un archivo .env en la raíz del proyecto con las siguientes variables de entorno:
    ```
-   DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/taxi24"
+   DATABASE_URL="postgresql://postgres:admin@localhost:5432/taxi24db?schema=public"
    PORT=3000
    ```
 
