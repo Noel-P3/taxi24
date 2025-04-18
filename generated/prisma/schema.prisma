@@ -21,6 +21,7 @@ model Conductores {
   status            StatusDisponibilidad @default(ACTIVO)
   ubicacionLatitud  Decimal?             @db.Decimal(10, 7)
   ubicacionLongitud Decimal?             @db.Decimal(10, 7)
+  nombreUbicacion   String?              @db.VarChar(250)
   Viajes            Viajes[]
 }
 
@@ -35,19 +36,33 @@ model Viajes {
   longitudDesde Decimal      @db.Decimal(10, 7)
   latitudHasta  Decimal      @db.Decimal(10, 7)
   longitudHasta Decimal      @db.Decimal(10, 7)
+  fecha         DateTime     @default(now())
+  facturaId     Int?
+  factura       Facturas?    @relation(fields: [facturaId], references: [id])
 }
 
 model Pasajeros {
-  id       Int                  @id @default(autoincrement())
-  nombre   String               @db.VarChar(75)
-  apellido String               @db.VarChar(75)
-  status   StatusDisponibilidad @default(ACTIVO)
-  Viajes   Viajes[]
+  id                Int                  @id @default(autoincrement())
+  nombre            String               @db.VarChar(75)
+  apellido          String               @db.VarChar(75)
+  status            StatusDisponibilidad @default(ACTIVO)
+  ubicacionLatitud  Decimal?             @db.Decimal(10, 7)
+  ubicacionLongitud Decimal?             @db.Decimal(10, 7)
+  nombreUbicacion   String?              @db.VarChar(250)
+  Viajes            Viajes[]
+}
+
+model Facturas {
+  id     Int      @id @default(autoincrement())
+  monto  Decimal  @db.Decimal(10, 2)
+  fecha  DateTime @default(now())
+  Viajes Viajes[]
 }
 
 enum StatusDisponibilidad {
   ACTIVO
   INACTIVO
+  EN_VIAJE
 }
 
 enum StatusViajes {

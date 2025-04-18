@@ -123,7 +123,8 @@ exports.Prisma.ConductoresScalarFieldEnum = {
   apellido: 'apellido',
   status: 'status',
   ubicacionLatitud: 'ubicacionLatitud',
-  ubicacionLongitud: 'ubicacionLongitud'
+  ubicacionLongitud: 'ubicacionLongitud',
+  nombreUbicacion: 'nombreUbicacion'
 };
 
 exports.Prisma.ViajesScalarFieldEnum = {
@@ -134,14 +135,25 @@ exports.Prisma.ViajesScalarFieldEnum = {
   latitudDesde: 'latitudDesde',
   longitudDesde: 'longitudDesde',
   latitudHasta: 'latitudHasta',
-  longitudHasta: 'longitudHasta'
+  longitudHasta: 'longitudHasta',
+  fecha: 'fecha',
+  facturaId: 'facturaId'
 };
 
 exports.Prisma.PasajerosScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   apellido: 'apellido',
-  status: 'status'
+  status: 'status',
+  ubicacionLatitud: 'ubicacionLatitud',
+  ubicacionLongitud: 'ubicacionLongitud',
+  nombreUbicacion: 'nombreUbicacion'
+};
+
+exports.Prisma.FacturasScalarFieldEnum = {
+  id: 'id',
+  monto: 'monto',
+  fecha: 'fecha'
 };
 
 exports.Prisma.SortOrder = {
@@ -160,7 +172,8 @@ exports.Prisma.NullsOrder = {
 };
 exports.StatusDisponibilidad = exports.$Enums.StatusDisponibilidad = {
   ACTIVO: 'ACTIVO',
-  INACTIVO: 'INACTIVO'
+  INACTIVO: 'INACTIVO',
+  EN_VIAJE: 'EN_VIAJE'
 };
 
 exports.StatusViajes = exports.$Enums.StatusViajes = {
@@ -171,7 +184,8 @@ exports.StatusViajes = exports.$Enums.StatusViajes = {
 exports.Prisma.ModelName = {
   Conductores: 'Conductores',
   Viajes: 'Viajes',
-  Pasajeros: 'Pasajeros'
+  Pasajeros: 'Pasajeros',
+  Facturas: 'Facturas'
 };
 
 /**

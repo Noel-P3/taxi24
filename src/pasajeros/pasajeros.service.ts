@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Conductores, Pasajeros, StatusDisponibilidad } from 'generated/prisma';
 import { getDistance } from 'geolib';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -29,30 +29,52 @@ export class PasajerosService {
     return pasajero;
   }
 
-  async getAllNearest(
-    latitude: number,
-    longitude: number,
-  ): Promise<Conductores[]> {
+  async getTop3Conductores(id: number): Promise<Conductores[]> {
+    if (isNaN(id)) {
+      throw new BadRequestException('ID inválido, valor debe ser numerico');
+    }
+
+    const pasajero = await this.getById(id);
+    if (!pasajero) {
+      throw new NotFoundException(`Pasajero con ID ${id} no encontrado.`);
+    }
+    const { ubicacionLatitud, ubicacionLongitud } = pasajero;
+    if (!ubicacionLatitud || !ubicacionLongitud) {
+      throw new BadRequestException('Ubicación del pasajero no disponible');
+    }
     const conductoresDisponibles = await this.prisma.conductores.findMany({
       where: { status: 'ACTIVO' },
     });
+    if (!conductoresDisponibles) {
+      throw new BadRequestException('No hay conductores disponibles');
+    }
 
-    // Calcular la distancia para cada conductor disponible
+    // Calcular la distancia y ordenar por la menor distancia
     const conductoresConDistancia = conductoresDisponibles.map((driver) => {
       const distance = getDistance(
+        {
+          latitude: Number(ubicacionLatitud),
+          longitude: Number(ubicacionLongitud),
+        },
         {
           latitude: Number(driver.ubicacionLatitud),
           longitude: Number(driver.ubicacionLongitud),
         },
-        { latitude, longitude },
       );
-      return { ...driver, distancia: distance };
+      return { ...driver, distance }; // Agregar la distancia al objeto del conductor
     });
 
     // Ordenar los conductores por distancia ascendente
-    conductoresConDistancia.sort((a, b) => a.distancia - b.distancia);
+    const conductoresOrdenados = conductoresConDistancia.sort((a, b) => a.distance - b.distance);
 
-    // Tomar los primeros 3 conductores (o menos si hay menos de 3 disponibles)
-    return conductoresConDistancia.slice(0, 3);
+    // Tomar los 3 conductores más cercanos
+    const top3Conductores = conductoresOrdenados.slice(0, 3);
+
+    if (top3Conductores.length === 0) {
+      throw new NotFoundException('No hay conductores cercanos disponibles.');
+    }
+
+    return top3Conductores.map(({ distance, ...driver }) => driver); // Retornar los conductores sin la propiedad "distance"
   }
+
 }

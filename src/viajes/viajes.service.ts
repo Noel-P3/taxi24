@@ -42,6 +42,33 @@ export class ViajesService {
      */
 
     async crearViaje(documento: CrearViajeDto): Promise<Viajes> {
+
+        const conductor = await this.prisma.conductores.findUnique({
+            where: {
+                id: documento.conductorId,
+                status: 'ACTIVO'  // Solo conductores activos
+            },
+        });
+
+        if (!conductor) {
+            throw new BadRequestException(
+                `Conductor ACTIVO con ID ${documento.conductorId} no encontrado.`,
+            );
+        }
+
+        const pasajero = await this.prisma.pasajeros.findUnique({
+            where: {
+                id: documento.pasajeroId,
+                status: 'ACTIVO'  // Solo pasajeros activos
+            },
+        });
+
+        if (!pasajero) {
+            throw new BadRequestException(
+                `Pasajero ACTIVO con ID ${documento.pasajeroId} no encontrado.`,
+            );
+        }
+
         try {
 
             const nuevoViaje = await this.prisma.viajes.create({
@@ -54,12 +81,30 @@ export class ViajesService {
                     latitudHasta: documento.latitudHasta,
                     status: 'EN_PROCESO',
                 },
+                include: {
+                    conductor: true,
+                    pasajero: true,
+                },
+            });
+
+            if (!nuevoViaje) {
+                throw new BadRequestException('Error al crear el viaje.');
+            }
+            // Actualizar el estado del conductor a 'EN_VIAJE'
+            await this.prisma.conductores.update({
+                where: { id: documento.conductorId },
+                data: { status: 'EN_VIAJE' },
+            });
+            // Actualizar el estado del pasajero a 'EN_VIAJE'
+            await this.prisma.pasajeros.update({
+                where: { id: documento.pasajeroId },
+                data: { status: 'EN_VIAJE' },
             });
 
             return nuevoViaje;
         } catch (error) {
             throw new BadRequestException(
-                `Error al crear el viaje: ${error.message}`,
+                `Error al crear el viaje, verifique que los valores indicados esten correctos: ${error.message}`,
             );
         }
     }
@@ -91,17 +136,47 @@ export class ViajesService {
             );
         }
 
+        // Crear la factura asociada al viaje
+        const factura = await this.prisma.facturas.create({
+            data: {
+                monto: 100, // Aquí puedes calcular el monto real según la lógica de tu aplicación
+                fecha: new Date(),
+            },
+        });
+
         const updatedViaje = await this.prisma.viajes.update({
             where: { id },
             data: {
                 status: 'TERMINADO',
+                facturaId: factura.id, // Asocia la factura al viaje
             },
             include: {
                 conductor: true,
                 pasajero: true,
+                factura: true,
             },
         });
 
-        return updatedViaje;
+        // Actualizar el estado del conductor a 'ACTIVO'
+        await this.prisma.conductores.update({
+            where: { id: updatedViaje.conductorId },
+            data: { status: 'ACTIVO' },
+        });
+        // Actualizar el estado del pasajero a 'ACTIVO'
+        await this.prisma.pasajeros.update({
+            where: { id: updatedViaje.pasajeroId },
+            data: { status: 'ACTIVO' },
+        });
+
+        const viajeFinalizado = await this.prisma.viajes.findUnique({
+            where: { id },
+            include: {
+                conductor: true,
+                pasajero: true,
+                factura: true,
+            },
+        });
+
+        return viajeFinalizado;
     }
 }

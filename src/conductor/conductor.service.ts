@@ -20,12 +20,12 @@ export class ConductorService {
   }
 
   async getAllAlvaible3km(
-    latitude: number,
-    longitude: number,
+    latitud: number,
+    longitud: number,
     radiusKm: number = 3,
   ): Promise<Conductores[]> {
 
-    if (isNaN(latitude) || isNaN(longitude)) {
+    if (isNaN(latitud) || isNaN(longitud)) {
       throw new BadRequestException('Latitud y longitud inválidas');
     }
     if (radiusKm <= 0) {
@@ -36,15 +36,19 @@ export class ConductorService {
       where: { status: 'ACTIVO' },
     });
 
+    if (!conductoresDisponibles) {
+      throw new BadRequestException('No hay conductores disponibles');
+    }
     return conductoresDisponibles.filter((driver) => {
       const distance = getDistance(
         {
-          latitude: Number(driver.ubicacionLatitud),
-          longitude: Number(driver.ubicacionLongitud),
+          latitude: latitud,
+          longitude: longitud,
         },
-        { latitude, longitude },
+        { latitude: Number(driver.ubicacionLatitud), longitude: Number(driver.ubicacionLongitud) },
       );
-      // La distancia devuelta por geolib está en metros, convertimos a kilómetros
+      console.log(driver.ubicacionLatitud, driver.ubicacionLongitud, 'vs', latitud, longitud);
+      console.log(distance / 1000);
       return distance / 1000 <= radiusKm;
     });
   }

@@ -1,0 +1,15 @@
+-- AlterTable
+ALTER TABLE "Viajes" ADD COLUMN     "fecha" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- CreateTable
+CREATE TABLE "Facturas" (
+    "id" SERIAL NOT NULL,
+    "viajeId" INTEGER NOT NULL,
+    "monto" DECIMAL(10,2) NOT NULL,
+    "fecha" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Facturas_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "Facturas" ADD CONSTRAINT "Facturas_viajeId_fkey" FOREIGN KEY ("viajeId") REFERENCES "Viajes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

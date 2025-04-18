@@ -2,7 +2,6 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { PasajerosService } from './pasajeros.service';
 import { GetPasajerosDTO } from './dto/getPasajerosDTO';
-import { GetPasajerosByIdDTO } from './dto/getPasajerosByIdDTO';
 
 @Controller('pasajeros')
 export class PasajerosController {
@@ -30,26 +29,12 @@ export class PasajerosController {
     return this.pasajerosService.getById(Number(id));
   }
 
-  @Get('/disponibles/cerca')
-  @ApiOperation({ summary: 'Obtener pasajeros disponibles cerca de una ubicación' })
-  @ApiQuery({ name: 'latitud', required: true, description: 'Latitud de la ubicación' })
-  @ApiQuery({ name: 'logintud', required: true, description: 'Longitud de la ubicación' })
-  @ApiResponse({ status: 200, description: 'Lista de pasajeros disponibles cerca de la ubicación' })
-  @ApiResponse({ status: 400, description: 'Latitud o longitud inválidas' })
-  async getAllAlvaible3km(
-    @Query('latitud') latitud: string,
-    @Query('logintud') logintud: string,
-  ) {
-    const lat = Number(latitud);
-    const lon = Number(logintud);
-
-    if (isNaN(lat) || isNaN(lon)) {
-      return { message: 'Latitud y longitud inválidas' };
-    }
-
-    return this.pasajerosService.getAllNearest(
-      Number(latitud),
-      Number(logintud),
-    );
+  @Get('conductoresCercanos/:id')
+  @ApiOperation({ summary: 'Obtener los 3 conductores más cercanos al pasajero' })
+  @ApiResponse({ status: 200, description: 'Lista de conductores encontrados' })
+  @ApiResponse({ status: 404, description: 'Pasajero no encontrado' })
+  @ApiResponse({ status: 400, description: 'Parámetros inválidos' })
+  async getTop3Conductores(@Param('id') id: number) {
+    return this.pasajerosService.getTop3Conductores(Number(id));
   }
 }

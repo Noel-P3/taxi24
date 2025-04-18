@@ -28,6 +28,11 @@ export type Viajes = $Result.DefaultSelection<Prisma.$ViajesPayload>
  * 
  */
 export type Pasajeros = $Result.DefaultSelection<Prisma.$PasajerosPayload>
+/**
+ * Model Facturas
+ * 
+ */
+export type Facturas = $Result.DefaultSelection<Prisma.$FacturasPayload>
 
 /**
  * Enums
@@ -35,7 +40,8 @@ export type Pasajeros = $Result.DefaultSelection<Prisma.$PasajerosPayload>
 export namespace $Enums {
   export const StatusDisponibilidad: {
   ACTIVO: 'ACTIVO',
-  INACTIVO: 'INACTIVO'
+  INACTIVO: 'INACTIVO',
+  EN_VIAJE: 'EN_VIAJE'
 };
 
 export type StatusDisponibilidad = (typeof StatusDisponibilidad)[keyof typeof StatusDisponibilidad]
@@ -212,6 +218,16 @@ export class PrismaClient<
     * ```
     */
   get pasajeros(): Prisma.PasajerosDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.facturas`: Exposes CRUD operations for the **Facturas** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Facturas
+    * const facturas = await prisma.facturas.findMany()
+    * ```
+    */
+  get facturas(): Prisma.FacturasDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -654,7 +670,8 @@ export namespace Prisma {
   export const ModelName: {
     Conductores: 'Conductores',
     Viajes: 'Viajes',
-    Pasajeros: 'Pasajeros'
+    Pasajeros: 'Pasajeros',
+    Facturas: 'Facturas'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -673,7 +690,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "conductores" | "viajes" | "pasajeros"
+      modelProps: "conductores" | "viajes" | "pasajeros" | "facturas"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -899,6 +916,80 @@ export namespace Prisma {
           }
         }
       }
+      Facturas: {
+        payload: Prisma.$FacturasPayload<ExtArgs>
+        fields: Prisma.FacturasFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FacturasFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FacturasFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload>
+          }
+          findFirst: {
+            args: Prisma.FacturasFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FacturasFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload>
+          }
+          findMany: {
+            args: Prisma.FacturasFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload>[]
+          }
+          create: {
+            args: Prisma.FacturasCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload>
+          }
+          createMany: {
+            args: Prisma.FacturasCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FacturasCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload>[]
+          }
+          delete: {
+            args: Prisma.FacturasDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload>
+          }
+          update: {
+            args: Prisma.FacturasUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload>
+          }
+          deleteMany: {
+            args: Prisma.FacturasDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FacturasUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FacturasUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload>[]
+          }
+          upsert: {
+            args: Prisma.FacturasUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FacturasPayload>
+          }
+          aggregate: {
+            args: Prisma.FacturasAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFacturas>
+          }
+          groupBy: {
+            args: Prisma.FacturasGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FacturasGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FacturasCountArgs<ExtArgs>
+            result: $Utils.Optional<FacturasCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -986,6 +1077,7 @@ export namespace Prisma {
     conductores?: ConductoresOmit
     viajes?: ViajesOmit
     pasajeros?: PasajerosOmit
+    facturas?: FacturasOmit
   }
 
   /* Types for Logging */
@@ -1138,6 +1230,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type FacturasCountOutputType
+   */
+
+  export type FacturasCountOutputType = {
+    Viajes: number
+  }
+
+  export type FacturasCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Viajes?: boolean | FacturasCountOutputTypeCountViajesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FacturasCountOutputType without action
+   */
+  export type FacturasCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FacturasCountOutputType
+     */
+    select?: FacturasCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FacturasCountOutputType without action
+   */
+  export type FacturasCountOutputTypeCountViajesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ViajesWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -1172,6 +1295,7 @@ export namespace Prisma {
     status: $Enums.StatusDisponibilidad | null
     ubicacionLatitud: Decimal | null
     ubicacionLongitud: Decimal | null
+    nombreUbicacion: string | null
   }
 
   export type ConductoresMaxAggregateOutputType = {
@@ -1181,6 +1305,7 @@ export namespace Prisma {
     status: $Enums.StatusDisponibilidad | null
     ubicacionLatitud: Decimal | null
     ubicacionLongitud: Decimal | null
+    nombreUbicacion: string | null
   }
 
   export type ConductoresCountAggregateOutputType = {
@@ -1190,6 +1315,7 @@ export namespace Prisma {
     status: number
     ubicacionLatitud: number
     ubicacionLongitud: number
+    nombreUbicacion: number
     _all: number
   }
 
@@ -1213,6 +1339,7 @@ export namespace Prisma {
     status?: true
     ubicacionLatitud?: true
     ubicacionLongitud?: true
+    nombreUbicacion?: true
   }
 
   export type ConductoresMaxAggregateInputType = {
@@ -1222,6 +1349,7 @@ export namespace Prisma {
     status?: true
     ubicacionLatitud?: true
     ubicacionLongitud?: true
+    nombreUbicacion?: true
   }
 
   export type ConductoresCountAggregateInputType = {
@@ -1231,6 +1359,7 @@ export namespace Prisma {
     status?: true
     ubicacionLatitud?: true
     ubicacionLongitud?: true
+    nombreUbicacion?: true
     _all?: true
   }
 
@@ -1327,6 +1456,7 @@ export namespace Prisma {
     status: $Enums.StatusDisponibilidad
     ubicacionLatitud: Decimal | null
     ubicacionLongitud: Decimal | null
+    nombreUbicacion: string | null
     _count: ConductoresCountAggregateOutputType | null
     _avg: ConductoresAvgAggregateOutputType | null
     _sum: ConductoresSumAggregateOutputType | null
@@ -1355,6 +1485,7 @@ export namespace Prisma {
     status?: boolean
     ubicacionLatitud?: boolean
     ubicacionLongitud?: boolean
+    nombreUbicacion?: boolean
     Viajes?: boolean | Conductores$ViajesArgs<ExtArgs>
     _count?: boolean | ConductoresCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["conductores"]>
@@ -1366,6 +1497,7 @@ export namespace Prisma {
     status?: boolean
     ubicacionLatitud?: boolean
     ubicacionLongitud?: boolean
+    nombreUbicacion?: boolean
   }, ExtArgs["result"]["conductores"]>
 
   export type ConductoresSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1375,6 +1507,7 @@ export namespace Prisma {
     status?: boolean
     ubicacionLatitud?: boolean
     ubicacionLongitud?: boolean
+    nombreUbicacion?: boolean
   }, ExtArgs["result"]["conductores"]>
 
   export type ConductoresSelectScalar = {
@@ -1384,9 +1517,10 @@ export namespace Prisma {
     status?: boolean
     ubicacionLatitud?: boolean
     ubicacionLongitud?: boolean
+    nombreUbicacion?: boolean
   }
 
-  export type ConductoresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "status" | "ubicacionLatitud" | "ubicacionLongitud", ExtArgs["result"]["conductores"]>
+  export type ConductoresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "status" | "ubicacionLatitud" | "ubicacionLongitud" | "nombreUbicacion", ExtArgs["result"]["conductores"]>
   export type ConductoresInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Viajes?: boolean | Conductores$ViajesArgs<ExtArgs>
     _count?: boolean | ConductoresCountOutputTypeDefaultArgs<ExtArgs>
@@ -1406,6 +1540,7 @@ export namespace Prisma {
       status: $Enums.StatusDisponibilidad
       ubicacionLatitud: Prisma.Decimal | null
       ubicacionLongitud: Prisma.Decimal | null
+      nombreUbicacion: string | null
     }, ExtArgs["result"]["conductores"]>
     composites: {}
   }
@@ -1836,6 +1971,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Conductores", 'StatusDisponibilidad'>
     readonly ubicacionLatitud: FieldRef<"Conductores", 'Decimal'>
     readonly ubicacionLongitud: FieldRef<"Conductores", 'Decimal'>
+    readonly nombreUbicacion: FieldRef<"Conductores", 'String'>
   }
     
 
@@ -2286,6 +2422,7 @@ export namespace Prisma {
     longitudDesde: Decimal | null
     latitudHasta: Decimal | null
     longitudHasta: Decimal | null
+    facturaId: number | null
   }
 
   export type ViajesSumAggregateOutputType = {
@@ -2296,6 +2433,7 @@ export namespace Prisma {
     longitudDesde: Decimal | null
     latitudHasta: Decimal | null
     longitudHasta: Decimal | null
+    facturaId: number | null
   }
 
   export type ViajesMinAggregateOutputType = {
@@ -2307,6 +2445,8 @@ export namespace Prisma {
     longitudDesde: Decimal | null
     latitudHasta: Decimal | null
     longitudHasta: Decimal | null
+    fecha: Date | null
+    facturaId: number | null
   }
 
   export type ViajesMaxAggregateOutputType = {
@@ -2318,6 +2458,8 @@ export namespace Prisma {
     longitudDesde: Decimal | null
     latitudHasta: Decimal | null
     longitudHasta: Decimal | null
+    fecha: Date | null
+    facturaId: number | null
   }
 
   export type ViajesCountAggregateOutputType = {
@@ -2329,6 +2471,8 @@ export namespace Prisma {
     longitudDesde: number
     latitudHasta: number
     longitudHasta: number
+    fecha: number
+    facturaId: number
     _all: number
   }
 
@@ -2341,6 +2485,7 @@ export namespace Prisma {
     longitudDesde?: true
     latitudHasta?: true
     longitudHasta?: true
+    facturaId?: true
   }
 
   export type ViajesSumAggregateInputType = {
@@ -2351,6 +2496,7 @@ export namespace Prisma {
     longitudDesde?: true
     latitudHasta?: true
     longitudHasta?: true
+    facturaId?: true
   }
 
   export type ViajesMinAggregateInputType = {
@@ -2362,6 +2508,8 @@ export namespace Prisma {
     longitudDesde?: true
     latitudHasta?: true
     longitudHasta?: true
+    fecha?: true
+    facturaId?: true
   }
 
   export type ViajesMaxAggregateInputType = {
@@ -2373,6 +2521,8 @@ export namespace Prisma {
     longitudDesde?: true
     latitudHasta?: true
     longitudHasta?: true
+    fecha?: true
+    facturaId?: true
   }
 
   export type ViajesCountAggregateInputType = {
@@ -2384,6 +2534,8 @@ export namespace Prisma {
     longitudDesde?: true
     latitudHasta?: true
     longitudHasta?: true
+    fecha?: true
+    facturaId?: true
     _all?: true
   }
 
@@ -2482,6 +2634,8 @@ export namespace Prisma {
     longitudDesde: Decimal
     latitudHasta: Decimal
     longitudHasta: Decimal
+    fecha: Date
+    facturaId: number | null
     _count: ViajesCountAggregateOutputType | null
     _avg: ViajesAvgAggregateOutputType | null
     _sum: ViajesSumAggregateOutputType | null
@@ -2512,8 +2666,11 @@ export namespace Prisma {
     longitudDesde?: boolean
     latitudHasta?: boolean
     longitudHasta?: boolean
+    fecha?: boolean
+    facturaId?: boolean
     pasajero?: boolean | PasajerosDefaultArgs<ExtArgs>
     conductor?: boolean | ConductoresDefaultArgs<ExtArgs>
+    factura?: boolean | Viajes$facturaArgs<ExtArgs>
   }, ExtArgs["result"]["viajes"]>
 
   export type ViajesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2525,8 +2682,11 @@ export namespace Prisma {
     longitudDesde?: boolean
     latitudHasta?: boolean
     longitudHasta?: boolean
+    fecha?: boolean
+    facturaId?: boolean
     pasajero?: boolean | PasajerosDefaultArgs<ExtArgs>
     conductor?: boolean | ConductoresDefaultArgs<ExtArgs>
+    factura?: boolean | Viajes$facturaArgs<ExtArgs>
   }, ExtArgs["result"]["viajes"]>
 
   export type ViajesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2538,8 +2698,11 @@ export namespace Prisma {
     longitudDesde?: boolean
     latitudHasta?: boolean
     longitudHasta?: boolean
+    fecha?: boolean
+    facturaId?: boolean
     pasajero?: boolean | PasajerosDefaultArgs<ExtArgs>
     conductor?: boolean | ConductoresDefaultArgs<ExtArgs>
+    factura?: boolean | Viajes$facturaArgs<ExtArgs>
   }, ExtArgs["result"]["viajes"]>
 
   export type ViajesSelectScalar = {
@@ -2551,20 +2714,25 @@ export namespace Prisma {
     longitudDesde?: boolean
     latitudHasta?: boolean
     longitudHasta?: boolean
+    fecha?: boolean
+    facturaId?: boolean
   }
 
-  export type ViajesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "pasajeroId" | "conductorId" | "status" | "latitudDesde" | "longitudDesde" | "latitudHasta" | "longitudHasta", ExtArgs["result"]["viajes"]>
+  export type ViajesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "pasajeroId" | "conductorId" | "status" | "latitudDesde" | "longitudDesde" | "latitudHasta" | "longitudHasta" | "fecha" | "facturaId", ExtArgs["result"]["viajes"]>
   export type ViajesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pasajero?: boolean | PasajerosDefaultArgs<ExtArgs>
     conductor?: boolean | ConductoresDefaultArgs<ExtArgs>
+    factura?: boolean | Viajes$facturaArgs<ExtArgs>
   }
   export type ViajesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pasajero?: boolean | PasajerosDefaultArgs<ExtArgs>
     conductor?: boolean | ConductoresDefaultArgs<ExtArgs>
+    factura?: boolean | Viajes$facturaArgs<ExtArgs>
   }
   export type ViajesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pasajero?: boolean | PasajerosDefaultArgs<ExtArgs>
     conductor?: boolean | ConductoresDefaultArgs<ExtArgs>
+    factura?: boolean | Viajes$facturaArgs<ExtArgs>
   }
 
   export type $ViajesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2572,6 +2740,7 @@ export namespace Prisma {
     objects: {
       pasajero: Prisma.$PasajerosPayload<ExtArgs>
       conductor: Prisma.$ConductoresPayload<ExtArgs>
+      factura: Prisma.$FacturasPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2582,6 +2751,8 @@ export namespace Prisma {
       longitudDesde: Prisma.Decimal
       latitudHasta: Prisma.Decimal
       longitudHasta: Prisma.Decimal
+      fecha: Date
+      facturaId: number | null
     }, ExtArgs["result"]["viajes"]>
     composites: {}
   }
@@ -2978,6 +3149,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     pasajero<T extends PasajerosDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PasajerosDefaultArgs<ExtArgs>>): Prisma__PasajerosClient<$Result.GetResult<Prisma.$PasajerosPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     conductor<T extends ConductoresDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConductoresDefaultArgs<ExtArgs>>): Prisma__ConductoresClient<$Result.GetResult<Prisma.$ConductoresPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    factura<T extends Viajes$facturaArgs<ExtArgs> = {}>(args?: Subset<T, Viajes$facturaArgs<ExtArgs>>): Prisma__FacturasClient<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3015,6 +3187,8 @@ export namespace Prisma {
     readonly longitudDesde: FieldRef<"Viajes", 'Decimal'>
     readonly latitudHasta: FieldRef<"Viajes", 'Decimal'>
     readonly longitudHasta: FieldRef<"Viajes", 'Decimal'>
+    readonly fecha: FieldRef<"Viajes", 'DateTime'>
+    readonly facturaId: FieldRef<"Viajes", 'Int'>
   }
     
 
@@ -3411,6 +3585,25 @@ export namespace Prisma {
   }
 
   /**
+   * Viajes.factura
+   */
+  export type Viajes$facturaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    where?: FacturasWhereInput
+  }
+
+  /**
    * Viajes without action
    */
   export type ViajesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3443,10 +3636,14 @@ export namespace Prisma {
 
   export type PasajerosAvgAggregateOutputType = {
     id: number | null
+    ubicacionLatitud: Decimal | null
+    ubicacionLongitud: Decimal | null
   }
 
   export type PasajerosSumAggregateOutputType = {
     id: number | null
+    ubicacionLatitud: Decimal | null
+    ubicacionLongitud: Decimal | null
   }
 
   export type PasajerosMinAggregateOutputType = {
@@ -3454,6 +3651,9 @@ export namespace Prisma {
     nombre: string | null
     apellido: string | null
     status: $Enums.StatusDisponibilidad | null
+    ubicacionLatitud: Decimal | null
+    ubicacionLongitud: Decimal | null
+    nombreUbicacion: string | null
   }
 
   export type PasajerosMaxAggregateOutputType = {
@@ -3461,6 +3661,9 @@ export namespace Prisma {
     nombre: string | null
     apellido: string | null
     status: $Enums.StatusDisponibilidad | null
+    ubicacionLatitud: Decimal | null
+    ubicacionLongitud: Decimal | null
+    nombreUbicacion: string | null
   }
 
   export type PasajerosCountAggregateOutputType = {
@@ -3468,16 +3671,23 @@ export namespace Prisma {
     nombre: number
     apellido: number
     status: number
+    ubicacionLatitud: number
+    ubicacionLongitud: number
+    nombreUbicacion: number
     _all: number
   }
 
 
   export type PasajerosAvgAggregateInputType = {
     id?: true
+    ubicacionLatitud?: true
+    ubicacionLongitud?: true
   }
 
   export type PasajerosSumAggregateInputType = {
     id?: true
+    ubicacionLatitud?: true
+    ubicacionLongitud?: true
   }
 
   export type PasajerosMinAggregateInputType = {
@@ -3485,6 +3695,9 @@ export namespace Prisma {
     nombre?: true
     apellido?: true
     status?: true
+    ubicacionLatitud?: true
+    ubicacionLongitud?: true
+    nombreUbicacion?: true
   }
 
   export type PasajerosMaxAggregateInputType = {
@@ -3492,6 +3705,9 @@ export namespace Prisma {
     nombre?: true
     apellido?: true
     status?: true
+    ubicacionLatitud?: true
+    ubicacionLongitud?: true
+    nombreUbicacion?: true
   }
 
   export type PasajerosCountAggregateInputType = {
@@ -3499,6 +3715,9 @@ export namespace Prisma {
     nombre?: true
     apellido?: true
     status?: true
+    ubicacionLatitud?: true
+    ubicacionLongitud?: true
+    nombreUbicacion?: true
     _all?: true
   }
 
@@ -3593,6 +3812,9 @@ export namespace Prisma {
     nombre: string
     apellido: string
     status: $Enums.StatusDisponibilidad
+    ubicacionLatitud: Decimal | null
+    ubicacionLongitud: Decimal | null
+    nombreUbicacion: string | null
     _count: PasajerosCountAggregateOutputType | null
     _avg: PasajerosAvgAggregateOutputType | null
     _sum: PasajerosSumAggregateOutputType | null
@@ -3619,6 +3841,9 @@ export namespace Prisma {
     nombre?: boolean
     apellido?: boolean
     status?: boolean
+    ubicacionLatitud?: boolean
+    ubicacionLongitud?: boolean
+    nombreUbicacion?: boolean
     Viajes?: boolean | Pasajeros$ViajesArgs<ExtArgs>
     _count?: boolean | PasajerosCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pasajeros"]>
@@ -3628,6 +3853,9 @@ export namespace Prisma {
     nombre?: boolean
     apellido?: boolean
     status?: boolean
+    ubicacionLatitud?: boolean
+    ubicacionLongitud?: boolean
+    nombreUbicacion?: boolean
   }, ExtArgs["result"]["pasajeros"]>
 
   export type PasajerosSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3635,6 +3863,9 @@ export namespace Prisma {
     nombre?: boolean
     apellido?: boolean
     status?: boolean
+    ubicacionLatitud?: boolean
+    ubicacionLongitud?: boolean
+    nombreUbicacion?: boolean
   }, ExtArgs["result"]["pasajeros"]>
 
   export type PasajerosSelectScalar = {
@@ -3642,9 +3873,12 @@ export namespace Prisma {
     nombre?: boolean
     apellido?: boolean
     status?: boolean
+    ubicacionLatitud?: boolean
+    ubicacionLongitud?: boolean
+    nombreUbicacion?: boolean
   }
 
-  export type PasajerosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "status", ExtArgs["result"]["pasajeros"]>
+  export type PasajerosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "status" | "ubicacionLatitud" | "ubicacionLongitud" | "nombreUbicacion", ExtArgs["result"]["pasajeros"]>
   export type PasajerosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Viajes?: boolean | Pasajeros$ViajesArgs<ExtArgs>
     _count?: boolean | PasajerosCountOutputTypeDefaultArgs<ExtArgs>
@@ -3662,6 +3896,9 @@ export namespace Prisma {
       nombre: string
       apellido: string
       status: $Enums.StatusDisponibilidad
+      ubicacionLatitud: Prisma.Decimal | null
+      ubicacionLongitud: Prisma.Decimal | null
+      nombreUbicacion: string | null
     }, ExtArgs["result"]["pasajeros"]>
     composites: {}
   }
@@ -4090,6 +4327,9 @@ export namespace Prisma {
     readonly nombre: FieldRef<"Pasajeros", 'String'>
     readonly apellido: FieldRef<"Pasajeros", 'String'>
     readonly status: FieldRef<"Pasajeros", 'StatusDisponibilidad'>
+    readonly ubicacionLatitud: FieldRef<"Pasajeros", 'Decimal'>
+    readonly ubicacionLongitud: FieldRef<"Pasajeros", 'Decimal'>
+    readonly nombreUbicacion: FieldRef<"Pasajeros", 'String'>
   }
     
 
@@ -4521,6 +4761,1088 @@ export namespace Prisma {
 
 
   /**
+   * Model Facturas
+   */
+
+  export type AggregateFacturas = {
+    _count: FacturasCountAggregateOutputType | null
+    _avg: FacturasAvgAggregateOutputType | null
+    _sum: FacturasSumAggregateOutputType | null
+    _min: FacturasMinAggregateOutputType | null
+    _max: FacturasMaxAggregateOutputType | null
+  }
+
+  export type FacturasAvgAggregateOutputType = {
+    id: number | null
+    monto: Decimal | null
+  }
+
+  export type FacturasSumAggregateOutputType = {
+    id: number | null
+    monto: Decimal | null
+  }
+
+  export type FacturasMinAggregateOutputType = {
+    id: number | null
+    monto: Decimal | null
+    fecha: Date | null
+  }
+
+  export type FacturasMaxAggregateOutputType = {
+    id: number | null
+    monto: Decimal | null
+    fecha: Date | null
+  }
+
+  export type FacturasCountAggregateOutputType = {
+    id: number
+    monto: number
+    fecha: number
+    _all: number
+  }
+
+
+  export type FacturasAvgAggregateInputType = {
+    id?: true
+    monto?: true
+  }
+
+  export type FacturasSumAggregateInputType = {
+    id?: true
+    monto?: true
+  }
+
+  export type FacturasMinAggregateInputType = {
+    id?: true
+    monto?: true
+    fecha?: true
+  }
+
+  export type FacturasMaxAggregateInputType = {
+    id?: true
+    monto?: true
+    fecha?: true
+  }
+
+  export type FacturasCountAggregateInputType = {
+    id?: true
+    monto?: true
+    fecha?: true
+    _all?: true
+  }
+
+  export type FacturasAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Facturas to aggregate.
+     */
+    where?: FacturasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Facturas to fetch.
+     */
+    orderBy?: FacturasOrderByWithRelationInput | FacturasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FacturasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Facturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Facturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Facturas
+    **/
+    _count?: true | FacturasCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FacturasAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FacturasSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FacturasMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FacturasMaxAggregateInputType
+  }
+
+  export type GetFacturasAggregateType<T extends FacturasAggregateArgs> = {
+        [P in keyof T & keyof AggregateFacturas]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFacturas[P]>
+      : GetScalarType<T[P], AggregateFacturas[P]>
+  }
+
+
+
+
+  export type FacturasGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FacturasWhereInput
+    orderBy?: FacturasOrderByWithAggregationInput | FacturasOrderByWithAggregationInput[]
+    by: FacturasScalarFieldEnum[] | FacturasScalarFieldEnum
+    having?: FacturasScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FacturasCountAggregateInputType | true
+    _avg?: FacturasAvgAggregateInputType
+    _sum?: FacturasSumAggregateInputType
+    _min?: FacturasMinAggregateInputType
+    _max?: FacturasMaxAggregateInputType
+  }
+
+  export type FacturasGroupByOutputType = {
+    id: number
+    monto: Decimal
+    fecha: Date
+    _count: FacturasCountAggregateOutputType | null
+    _avg: FacturasAvgAggregateOutputType | null
+    _sum: FacturasSumAggregateOutputType | null
+    _min: FacturasMinAggregateOutputType | null
+    _max: FacturasMaxAggregateOutputType | null
+  }
+
+  type GetFacturasGroupByPayload<T extends FacturasGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FacturasGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FacturasGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FacturasGroupByOutputType[P]>
+            : GetScalarType<T[P], FacturasGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FacturasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    monto?: boolean
+    fecha?: boolean
+    Viajes?: boolean | Facturas$ViajesArgs<ExtArgs>
+    _count?: boolean | FacturasCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["facturas"]>
+
+  export type FacturasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    monto?: boolean
+    fecha?: boolean
+  }, ExtArgs["result"]["facturas"]>
+
+  export type FacturasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    monto?: boolean
+    fecha?: boolean
+  }, ExtArgs["result"]["facturas"]>
+
+  export type FacturasSelectScalar = {
+    id?: boolean
+    monto?: boolean
+    fecha?: boolean
+  }
+
+  export type FacturasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "monto" | "fecha", ExtArgs["result"]["facturas"]>
+  export type FacturasInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Viajes?: boolean | Facturas$ViajesArgs<ExtArgs>
+    _count?: boolean | FacturasCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FacturasIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type FacturasIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $FacturasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Facturas"
+    objects: {
+      Viajes: Prisma.$ViajesPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      monto: Prisma.Decimal
+      fecha: Date
+    }, ExtArgs["result"]["facturas"]>
+    composites: {}
+  }
+
+  type FacturasGetPayload<S extends boolean | null | undefined | FacturasDefaultArgs> = $Result.GetResult<Prisma.$FacturasPayload, S>
+
+  type FacturasCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FacturasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FacturasCountAggregateInputType | true
+    }
+
+  export interface FacturasDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Facturas'], meta: { name: 'Facturas' } }
+    /**
+     * Find zero or one Facturas that matches the filter.
+     * @param {FacturasFindUniqueArgs} args - Arguments to find a Facturas
+     * @example
+     * // Get one Facturas
+     * const facturas = await prisma.facturas.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FacturasFindUniqueArgs>(args: SelectSubset<T, FacturasFindUniqueArgs<ExtArgs>>): Prisma__FacturasClient<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Facturas that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FacturasFindUniqueOrThrowArgs} args - Arguments to find a Facturas
+     * @example
+     * // Get one Facturas
+     * const facturas = await prisma.facturas.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FacturasFindUniqueOrThrowArgs>(args: SelectSubset<T, FacturasFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FacturasClient<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Facturas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FacturasFindFirstArgs} args - Arguments to find a Facturas
+     * @example
+     * // Get one Facturas
+     * const facturas = await prisma.facturas.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FacturasFindFirstArgs>(args?: SelectSubset<T, FacturasFindFirstArgs<ExtArgs>>): Prisma__FacturasClient<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Facturas that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FacturasFindFirstOrThrowArgs} args - Arguments to find a Facturas
+     * @example
+     * // Get one Facturas
+     * const facturas = await prisma.facturas.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FacturasFindFirstOrThrowArgs>(args?: SelectSubset<T, FacturasFindFirstOrThrowArgs<ExtArgs>>): Prisma__FacturasClient<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Facturas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FacturasFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Facturas
+     * const facturas = await prisma.facturas.findMany()
+     * 
+     * // Get first 10 Facturas
+     * const facturas = await prisma.facturas.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const facturasWithIdOnly = await prisma.facturas.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FacturasFindManyArgs>(args?: SelectSubset<T, FacturasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Facturas.
+     * @param {FacturasCreateArgs} args - Arguments to create a Facturas.
+     * @example
+     * // Create one Facturas
+     * const Facturas = await prisma.facturas.create({
+     *   data: {
+     *     // ... data to create a Facturas
+     *   }
+     * })
+     * 
+     */
+    create<T extends FacturasCreateArgs>(args: SelectSubset<T, FacturasCreateArgs<ExtArgs>>): Prisma__FacturasClient<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Facturas.
+     * @param {FacturasCreateManyArgs} args - Arguments to create many Facturas.
+     * @example
+     * // Create many Facturas
+     * const facturas = await prisma.facturas.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FacturasCreateManyArgs>(args?: SelectSubset<T, FacturasCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Facturas and returns the data saved in the database.
+     * @param {FacturasCreateManyAndReturnArgs} args - Arguments to create many Facturas.
+     * @example
+     * // Create many Facturas
+     * const facturas = await prisma.facturas.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Facturas and only return the `id`
+     * const facturasWithIdOnly = await prisma.facturas.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FacturasCreateManyAndReturnArgs>(args?: SelectSubset<T, FacturasCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Facturas.
+     * @param {FacturasDeleteArgs} args - Arguments to delete one Facturas.
+     * @example
+     * // Delete one Facturas
+     * const Facturas = await prisma.facturas.delete({
+     *   where: {
+     *     // ... filter to delete one Facturas
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FacturasDeleteArgs>(args: SelectSubset<T, FacturasDeleteArgs<ExtArgs>>): Prisma__FacturasClient<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Facturas.
+     * @param {FacturasUpdateArgs} args - Arguments to update one Facturas.
+     * @example
+     * // Update one Facturas
+     * const facturas = await prisma.facturas.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FacturasUpdateArgs>(args: SelectSubset<T, FacturasUpdateArgs<ExtArgs>>): Prisma__FacturasClient<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Facturas.
+     * @param {FacturasDeleteManyArgs} args - Arguments to filter Facturas to delete.
+     * @example
+     * // Delete a few Facturas
+     * const { count } = await prisma.facturas.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FacturasDeleteManyArgs>(args?: SelectSubset<T, FacturasDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Facturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FacturasUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Facturas
+     * const facturas = await prisma.facturas.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FacturasUpdateManyArgs>(args: SelectSubset<T, FacturasUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Facturas and returns the data updated in the database.
+     * @param {FacturasUpdateManyAndReturnArgs} args - Arguments to update many Facturas.
+     * @example
+     * // Update many Facturas
+     * const facturas = await prisma.facturas.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Facturas and only return the `id`
+     * const facturasWithIdOnly = await prisma.facturas.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FacturasUpdateManyAndReturnArgs>(args: SelectSubset<T, FacturasUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Facturas.
+     * @param {FacturasUpsertArgs} args - Arguments to update or create a Facturas.
+     * @example
+     * // Update or create a Facturas
+     * const facturas = await prisma.facturas.upsert({
+     *   create: {
+     *     // ... data to create a Facturas
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Facturas we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FacturasUpsertArgs>(args: SelectSubset<T, FacturasUpsertArgs<ExtArgs>>): Prisma__FacturasClient<$Result.GetResult<Prisma.$FacturasPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Facturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FacturasCountArgs} args - Arguments to filter Facturas to count.
+     * @example
+     * // Count the number of Facturas
+     * const count = await prisma.facturas.count({
+     *   where: {
+     *     // ... the filter for the Facturas we want to count
+     *   }
+     * })
+    **/
+    count<T extends FacturasCountArgs>(
+      args?: Subset<T, FacturasCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FacturasCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Facturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FacturasAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FacturasAggregateArgs>(args: Subset<T, FacturasAggregateArgs>): Prisma.PrismaPromise<GetFacturasAggregateType<T>>
+
+    /**
+     * Group by Facturas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FacturasGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FacturasGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FacturasGroupByArgs['orderBy'] }
+        : { orderBy?: FacturasGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FacturasGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFacturasGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Facturas model
+   */
+  readonly fields: FacturasFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Facturas.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FacturasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Viajes<T extends Facturas$ViajesArgs<ExtArgs> = {}>(args?: Subset<T, Facturas$ViajesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ViajesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Facturas model
+   */
+  interface FacturasFieldRefs {
+    readonly id: FieldRef<"Facturas", 'Int'>
+    readonly monto: FieldRef<"Facturas", 'Decimal'>
+    readonly fecha: FieldRef<"Facturas", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Facturas findUnique
+   */
+  export type FacturasFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    /**
+     * Filter, which Facturas to fetch.
+     */
+    where: FacturasWhereUniqueInput
+  }
+
+  /**
+   * Facturas findUniqueOrThrow
+   */
+  export type FacturasFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    /**
+     * Filter, which Facturas to fetch.
+     */
+    where: FacturasWhereUniqueInput
+  }
+
+  /**
+   * Facturas findFirst
+   */
+  export type FacturasFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    /**
+     * Filter, which Facturas to fetch.
+     */
+    where?: FacturasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Facturas to fetch.
+     */
+    orderBy?: FacturasOrderByWithRelationInput | FacturasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Facturas.
+     */
+    cursor?: FacturasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Facturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Facturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Facturas.
+     */
+    distinct?: FacturasScalarFieldEnum | FacturasScalarFieldEnum[]
+  }
+
+  /**
+   * Facturas findFirstOrThrow
+   */
+  export type FacturasFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    /**
+     * Filter, which Facturas to fetch.
+     */
+    where?: FacturasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Facturas to fetch.
+     */
+    orderBy?: FacturasOrderByWithRelationInput | FacturasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Facturas.
+     */
+    cursor?: FacturasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Facturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Facturas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Facturas.
+     */
+    distinct?: FacturasScalarFieldEnum | FacturasScalarFieldEnum[]
+  }
+
+  /**
+   * Facturas findMany
+   */
+  export type FacturasFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    /**
+     * Filter, which Facturas to fetch.
+     */
+    where?: FacturasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Facturas to fetch.
+     */
+    orderBy?: FacturasOrderByWithRelationInput | FacturasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Facturas.
+     */
+    cursor?: FacturasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Facturas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Facturas.
+     */
+    skip?: number
+    distinct?: FacturasScalarFieldEnum | FacturasScalarFieldEnum[]
+  }
+
+  /**
+   * Facturas create
+   */
+  export type FacturasCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Facturas.
+     */
+    data: XOR<FacturasCreateInput, FacturasUncheckedCreateInput>
+  }
+
+  /**
+   * Facturas createMany
+   */
+  export type FacturasCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Facturas.
+     */
+    data: FacturasCreateManyInput | FacturasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Facturas createManyAndReturn
+   */
+  export type FacturasCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * The data used to create many Facturas.
+     */
+    data: FacturasCreateManyInput | FacturasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Facturas update
+   */
+  export type FacturasUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Facturas.
+     */
+    data: XOR<FacturasUpdateInput, FacturasUncheckedUpdateInput>
+    /**
+     * Choose, which Facturas to update.
+     */
+    where: FacturasWhereUniqueInput
+  }
+
+  /**
+   * Facturas updateMany
+   */
+  export type FacturasUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Facturas.
+     */
+    data: XOR<FacturasUpdateManyMutationInput, FacturasUncheckedUpdateManyInput>
+    /**
+     * Filter which Facturas to update
+     */
+    where?: FacturasWhereInput
+    /**
+     * Limit how many Facturas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Facturas updateManyAndReturn
+   */
+  export type FacturasUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * The data used to update Facturas.
+     */
+    data: XOR<FacturasUpdateManyMutationInput, FacturasUncheckedUpdateManyInput>
+    /**
+     * Filter which Facturas to update
+     */
+    where?: FacturasWhereInput
+    /**
+     * Limit how many Facturas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Facturas upsert
+   */
+  export type FacturasUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Facturas to update in case it exists.
+     */
+    where: FacturasWhereUniqueInput
+    /**
+     * In case the Facturas found by the `where` argument doesn't exist, create a new Facturas with this data.
+     */
+    create: XOR<FacturasCreateInput, FacturasUncheckedCreateInput>
+    /**
+     * In case the Facturas was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FacturasUpdateInput, FacturasUncheckedUpdateInput>
+  }
+
+  /**
+   * Facturas delete
+   */
+  export type FacturasDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+    /**
+     * Filter which Facturas to delete.
+     */
+    where: FacturasWhereUniqueInput
+  }
+
+  /**
+   * Facturas deleteMany
+   */
+  export type FacturasDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Facturas to delete
+     */
+    where?: FacturasWhereInput
+    /**
+     * Limit how many Facturas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Facturas.Viajes
+   */
+  export type Facturas$ViajesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Viajes
+     */
+    select?: ViajesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Viajes
+     */
+    omit?: ViajesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ViajesInclude<ExtArgs> | null
+    where?: ViajesWhereInput
+    orderBy?: ViajesOrderByWithRelationInput | ViajesOrderByWithRelationInput[]
+    cursor?: ViajesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ViajesScalarFieldEnum | ViajesScalarFieldEnum[]
+  }
+
+  /**
+   * Facturas without action
+   */
+  export type FacturasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Facturas
+     */
+    select?: FacturasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Facturas
+     */
+    omit?: FacturasOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FacturasInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4540,7 +5862,8 @@ export namespace Prisma {
     apellido: 'apellido',
     status: 'status',
     ubicacionLatitud: 'ubicacionLatitud',
-    ubicacionLongitud: 'ubicacionLongitud'
+    ubicacionLongitud: 'ubicacionLongitud',
+    nombreUbicacion: 'nombreUbicacion'
   };
 
   export type ConductoresScalarFieldEnum = (typeof ConductoresScalarFieldEnum)[keyof typeof ConductoresScalarFieldEnum]
@@ -4554,7 +5877,9 @@ export namespace Prisma {
     latitudDesde: 'latitudDesde',
     longitudDesde: 'longitudDesde',
     latitudHasta: 'latitudHasta',
-    longitudHasta: 'longitudHasta'
+    longitudHasta: 'longitudHasta',
+    fecha: 'fecha',
+    facturaId: 'facturaId'
   };
 
   export type ViajesScalarFieldEnum = (typeof ViajesScalarFieldEnum)[keyof typeof ViajesScalarFieldEnum]
@@ -4564,10 +5889,22 @@ export namespace Prisma {
     id: 'id',
     nombre: 'nombre',
     apellido: 'apellido',
-    status: 'status'
+    status: 'status',
+    ubicacionLatitud: 'ubicacionLatitud',
+    ubicacionLongitud: 'ubicacionLongitud',
+    nombreUbicacion: 'nombreUbicacion'
   };
 
   export type PasajerosScalarFieldEnum = (typeof PasajerosScalarFieldEnum)[keyof typeof PasajerosScalarFieldEnum]
+
+
+  export const FacturasScalarFieldEnum: {
+    id: 'id',
+    monto: 'monto',
+    fecha: 'fecha'
+  };
+
+  export type FacturasScalarFieldEnum = (typeof FacturasScalarFieldEnum)[keyof typeof FacturasScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4670,6 +6007,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -4696,6 +6047,7 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadFilter<"Conductores"> | $Enums.StatusDisponibilidad
     ubicacionLatitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: StringNullableFilter<"Conductores"> | string | null
     Viajes?: ViajesListRelationFilter
   }
 
@@ -4706,6 +6058,7 @@ export namespace Prisma {
     status?: SortOrder
     ubicacionLatitud?: SortOrderInput | SortOrder
     ubicacionLongitud?: SortOrderInput | SortOrder
+    nombreUbicacion?: SortOrderInput | SortOrder
     Viajes?: ViajesOrderByRelationAggregateInput
   }
 
@@ -4719,6 +6072,7 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadFilter<"Conductores"> | $Enums.StatusDisponibilidad
     ubicacionLatitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: StringNullableFilter<"Conductores"> | string | null
     Viajes?: ViajesListRelationFilter
   }, "id">
 
@@ -4729,6 +6083,7 @@ export namespace Prisma {
     status?: SortOrder
     ubicacionLatitud?: SortOrderInput | SortOrder
     ubicacionLongitud?: SortOrderInput | SortOrder
+    nombreUbicacion?: SortOrderInput | SortOrder
     _count?: ConductoresCountOrderByAggregateInput
     _avg?: ConductoresAvgOrderByAggregateInput
     _max?: ConductoresMaxOrderByAggregateInput
@@ -4746,6 +6101,7 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadWithAggregatesFilter<"Conductores"> | $Enums.StatusDisponibilidad
     ubicacionLatitud?: DecimalNullableWithAggregatesFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: DecimalNullableWithAggregatesFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: StringNullableWithAggregatesFilter<"Conductores"> | string | null
   }
 
   export type ViajesWhereInput = {
@@ -4760,8 +6116,11 @@ export namespace Prisma {
     longitudDesde?: DecimalFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFilter<"Viajes"> | Date | string
+    facturaId?: IntNullableFilter<"Viajes"> | number | null
     pasajero?: XOR<PasajerosScalarRelationFilter, PasajerosWhereInput>
     conductor?: XOR<ConductoresScalarRelationFilter, ConductoresWhereInput>
+    factura?: XOR<FacturasNullableScalarRelationFilter, FacturasWhereInput> | null
   }
 
   export type ViajesOrderByWithRelationInput = {
@@ -4773,8 +6132,11 @@ export namespace Prisma {
     longitudDesde?: SortOrder
     latitudHasta?: SortOrder
     longitudHasta?: SortOrder
+    fecha?: SortOrder
+    facturaId?: SortOrderInput | SortOrder
     pasajero?: PasajerosOrderByWithRelationInput
     conductor?: ConductoresOrderByWithRelationInput
+    factura?: FacturasOrderByWithRelationInput
   }
 
   export type ViajesWhereUniqueInput = Prisma.AtLeast<{
@@ -4789,8 +6151,11 @@ export namespace Prisma {
     longitudDesde?: DecimalFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFilter<"Viajes"> | Date | string
+    facturaId?: IntNullableFilter<"Viajes"> | number | null
     pasajero?: XOR<PasajerosScalarRelationFilter, PasajerosWhereInput>
     conductor?: XOR<ConductoresScalarRelationFilter, ConductoresWhereInput>
+    factura?: XOR<FacturasNullableScalarRelationFilter, FacturasWhereInput> | null
   }, "id">
 
   export type ViajesOrderByWithAggregationInput = {
@@ -4802,6 +6167,8 @@ export namespace Prisma {
     longitudDesde?: SortOrder
     latitudHasta?: SortOrder
     longitudHasta?: SortOrder
+    fecha?: SortOrder
+    facturaId?: SortOrderInput | SortOrder
     _count?: ViajesCountOrderByAggregateInput
     _avg?: ViajesAvgOrderByAggregateInput
     _max?: ViajesMaxOrderByAggregateInput
@@ -4821,6 +6188,8 @@ export namespace Prisma {
     longitudDesde?: DecimalWithAggregatesFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalWithAggregatesFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalWithAggregatesFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeWithAggregatesFilter<"Viajes"> | Date | string
+    facturaId?: IntNullableWithAggregatesFilter<"Viajes"> | number | null
   }
 
   export type PasajerosWhereInput = {
@@ -4831,6 +6200,9 @@ export namespace Prisma {
     nombre?: StringFilter<"Pasajeros"> | string
     apellido?: StringFilter<"Pasajeros"> | string
     status?: EnumStatusDisponibilidadFilter<"Pasajeros"> | $Enums.StatusDisponibilidad
+    ubicacionLatitud?: DecimalNullableFilter<"Pasajeros"> | Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: DecimalNullableFilter<"Pasajeros"> | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: StringNullableFilter<"Pasajeros"> | string | null
     Viajes?: ViajesListRelationFilter
   }
 
@@ -4839,6 +6211,9 @@ export namespace Prisma {
     nombre?: SortOrder
     apellido?: SortOrder
     status?: SortOrder
+    ubicacionLatitud?: SortOrderInput | SortOrder
+    ubicacionLongitud?: SortOrderInput | SortOrder
+    nombreUbicacion?: SortOrderInput | SortOrder
     Viajes?: ViajesOrderByRelationAggregateInput
   }
 
@@ -4850,6 +6225,9 @@ export namespace Prisma {
     nombre?: StringFilter<"Pasajeros"> | string
     apellido?: StringFilter<"Pasajeros"> | string
     status?: EnumStatusDisponibilidadFilter<"Pasajeros"> | $Enums.StatusDisponibilidad
+    ubicacionLatitud?: DecimalNullableFilter<"Pasajeros"> | Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: DecimalNullableFilter<"Pasajeros"> | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: StringNullableFilter<"Pasajeros"> | string | null
     Viajes?: ViajesListRelationFilter
   }, "id">
 
@@ -4858,6 +6236,9 @@ export namespace Prisma {
     nombre?: SortOrder
     apellido?: SortOrder
     status?: SortOrder
+    ubicacionLatitud?: SortOrderInput | SortOrder
+    ubicacionLongitud?: SortOrderInput | SortOrder
+    nombreUbicacion?: SortOrderInput | SortOrder
     _count?: PasajerosCountOrderByAggregateInput
     _avg?: PasajerosAvgOrderByAggregateInput
     _max?: PasajerosMaxOrderByAggregateInput
@@ -4873,6 +6254,56 @@ export namespace Prisma {
     nombre?: StringWithAggregatesFilter<"Pasajeros"> | string
     apellido?: StringWithAggregatesFilter<"Pasajeros"> | string
     status?: EnumStatusDisponibilidadWithAggregatesFilter<"Pasajeros"> | $Enums.StatusDisponibilidad
+    ubicacionLatitud?: DecimalNullableWithAggregatesFilter<"Pasajeros"> | Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: DecimalNullableWithAggregatesFilter<"Pasajeros"> | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: StringNullableWithAggregatesFilter<"Pasajeros"> | string | null
+  }
+
+  export type FacturasWhereInput = {
+    AND?: FacturasWhereInput | FacturasWhereInput[]
+    OR?: FacturasWhereInput[]
+    NOT?: FacturasWhereInput | FacturasWhereInput[]
+    id?: IntFilter<"Facturas"> | number
+    monto?: DecimalFilter<"Facturas"> | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFilter<"Facturas"> | Date | string
+    Viajes?: ViajesListRelationFilter
+  }
+
+  export type FacturasOrderByWithRelationInput = {
+    id?: SortOrder
+    monto?: SortOrder
+    fecha?: SortOrder
+    Viajes?: ViajesOrderByRelationAggregateInput
+  }
+
+  export type FacturasWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: FacturasWhereInput | FacturasWhereInput[]
+    OR?: FacturasWhereInput[]
+    NOT?: FacturasWhereInput | FacturasWhereInput[]
+    monto?: DecimalFilter<"Facturas"> | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFilter<"Facturas"> | Date | string
+    Viajes?: ViajesListRelationFilter
+  }, "id">
+
+  export type FacturasOrderByWithAggregationInput = {
+    id?: SortOrder
+    monto?: SortOrder
+    fecha?: SortOrder
+    _count?: FacturasCountOrderByAggregateInput
+    _avg?: FacturasAvgOrderByAggregateInput
+    _max?: FacturasMaxOrderByAggregateInput
+    _min?: FacturasMinOrderByAggregateInput
+    _sum?: FacturasSumOrderByAggregateInput
+  }
+
+  export type FacturasScalarWhereWithAggregatesInput = {
+    AND?: FacturasScalarWhereWithAggregatesInput | FacturasScalarWhereWithAggregatesInput[]
+    OR?: FacturasScalarWhereWithAggregatesInput[]
+    NOT?: FacturasScalarWhereWithAggregatesInput | FacturasScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Facturas"> | number
+    monto?: DecimalWithAggregatesFilter<"Facturas"> | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeWithAggregatesFilter<"Facturas"> | Date | string
   }
 
   export type ConductoresCreateInput = {
@@ -4881,6 +6312,7 @@ export namespace Prisma {
     status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
     Viajes?: ViajesCreateNestedManyWithoutConductorInput
   }
 
@@ -4891,6 +6323,7 @@ export namespace Prisma {
     status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
     Viajes?: ViajesUncheckedCreateNestedManyWithoutConductorInput
   }
 
@@ -4900,6 +6333,7 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
     Viajes?: ViajesUpdateManyWithoutConductorNestedInput
   }
 
@@ -4910,6 +6344,7 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
     Viajes?: ViajesUncheckedUpdateManyWithoutConductorNestedInput
   }
 
@@ -4920,6 +6355,7 @@ export namespace Prisma {
     status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
   }
 
   export type ConductoresUpdateManyMutationInput = {
@@ -4928,6 +6364,7 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ConductoresUncheckedUpdateManyInput = {
@@ -4937,6 +6374,7 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ViajesCreateInput = {
@@ -4945,8 +6383,10 @@ export namespace Prisma {
     longitudDesde: Decimal | DecimalJsLike | number | string
     latitudHasta: Decimal | DecimalJsLike | number | string
     longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
     pasajero: PasajerosCreateNestedOneWithoutViajesInput
     conductor: ConductoresCreateNestedOneWithoutViajesInput
+    factura?: FacturasCreateNestedOneWithoutViajesInput
   }
 
   export type ViajesUncheckedCreateInput = {
@@ -4958,6 +6398,8 @@ export namespace Prisma {
     longitudDesde: Decimal | DecimalJsLike | number | string
     latitudHasta: Decimal | DecimalJsLike | number | string
     longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+    facturaId?: number | null
   }
 
   export type ViajesUpdateInput = {
@@ -4966,8 +6408,10 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     pasajero?: PasajerosUpdateOneRequiredWithoutViajesNestedInput
     conductor?: ConductoresUpdateOneRequiredWithoutViajesNestedInput
+    factura?: FacturasUpdateOneWithoutViajesNestedInput
   }
 
   export type ViajesUncheckedUpdateInput = {
@@ -4979,6 +6423,8 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    facturaId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ViajesCreateManyInput = {
@@ -4990,6 +6436,8 @@ export namespace Prisma {
     longitudDesde: Decimal | DecimalJsLike | number | string
     latitudHasta: Decimal | DecimalJsLike | number | string
     longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+    facturaId?: number | null
   }
 
   export type ViajesUpdateManyMutationInput = {
@@ -4998,6 +6446,7 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ViajesUncheckedUpdateManyInput = {
@@ -5009,12 +6458,17 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    facturaId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type PasajerosCreateInput = {
     nombre: string
     apellido: string
     status?: $Enums.StatusDisponibilidad
+    ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
     Viajes?: ViajesCreateNestedManyWithoutPasajeroInput
   }
 
@@ -5023,6 +6477,9 @@ export namespace Prisma {
     nombre: string
     apellido: string
     status?: $Enums.StatusDisponibilidad
+    ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
     Viajes?: ViajesUncheckedCreateNestedManyWithoutPasajeroInput
   }
 
@@ -5030,6 +6487,9 @@ export namespace Prisma {
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
+    ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
     Viajes?: ViajesUpdateManyWithoutPasajeroNestedInput
   }
 
@@ -5038,6 +6498,9 @@ export namespace Prisma {
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
+    ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
     Viajes?: ViajesUncheckedUpdateManyWithoutPasajeroNestedInput
   }
 
@@ -5046,12 +6509,18 @@ export namespace Prisma {
     nombre: string
     apellido: string
     status?: $Enums.StatusDisponibilidad
+    ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
   }
 
   export type PasajerosUpdateManyMutationInput = {
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
+    ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PasajerosUncheckedUpdateManyInput = {
@@ -5059,6 +6528,52 @@ export namespace Prisma {
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
+    ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FacturasCreateInput = {
+    monto: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+    Viajes?: ViajesCreateNestedManyWithoutFacturaInput
+  }
+
+  export type FacturasUncheckedCreateInput = {
+    id?: number
+    monto: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+    Viajes?: ViajesUncheckedCreateNestedManyWithoutFacturaInput
+  }
+
+  export type FacturasUpdateInput = {
+    monto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    Viajes?: ViajesUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type FacturasUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    monto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    Viajes?: ViajesUncheckedUpdateManyWithoutFacturaNestedInput
+  }
+
+  export type FacturasCreateManyInput = {
+    id?: number
+    monto: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+  }
+
+  export type FacturasUpdateManyMutationInput = {
+    monto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FacturasUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    monto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -5105,6 +6620,21 @@ export namespace Prisma {
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type ViajesListRelationFilter = {
     every?: ViajesWhereInput
     some?: ViajesWhereInput
@@ -5127,6 +6657,7 @@ export namespace Prisma {
     status?: SortOrder
     ubicacionLatitud?: SortOrder
     ubicacionLongitud?: SortOrder
+    nombreUbicacion?: SortOrder
   }
 
   export type ConductoresAvgOrderByAggregateInput = {
@@ -5142,6 +6673,7 @@ export namespace Prisma {
     status?: SortOrder
     ubicacionLatitud?: SortOrder
     ubicacionLongitud?: SortOrder
+    nombreUbicacion?: SortOrder
   }
 
   export type ConductoresMinOrderByAggregateInput = {
@@ -5151,6 +6683,7 @@ export namespace Prisma {
     status?: SortOrder
     ubicacionLatitud?: SortOrder
     ubicacionLongitud?: SortOrder
+    nombreUbicacion?: SortOrder
   }
 
   export type ConductoresSumOrderByAggregateInput = {
@@ -5219,6 +6752,24 @@ export namespace Prisma {
     _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type EnumStatusViajesFilter<$PrismaModel = never> = {
     equals?: $Enums.StatusViajes | EnumStatusViajesFieldRefInput<$PrismaModel>
     in?: $Enums.StatusViajes[] | ListEnumStatusViajesFieldRefInput<$PrismaModel>
@@ -5237,6 +6788,28 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type PasajerosScalarRelationFilter = {
     is?: PasajerosWhereInput
     isNot?: PasajerosWhereInput
@@ -5245,6 +6818,11 @@ export namespace Prisma {
   export type ConductoresScalarRelationFilter = {
     is?: ConductoresWhereInput
     isNot?: ConductoresWhereInput
+  }
+
+  export type FacturasNullableScalarRelationFilter = {
+    is?: FacturasWhereInput | null
+    isNot?: FacturasWhereInput | null
   }
 
   export type ViajesCountOrderByAggregateInput = {
@@ -5256,6 +6834,8 @@ export namespace Prisma {
     longitudDesde?: SortOrder
     latitudHasta?: SortOrder
     longitudHasta?: SortOrder
+    fecha?: SortOrder
+    facturaId?: SortOrder
   }
 
   export type ViajesAvgOrderByAggregateInput = {
@@ -5266,6 +6846,7 @@ export namespace Prisma {
     longitudDesde?: SortOrder
     latitudHasta?: SortOrder
     longitudHasta?: SortOrder
+    facturaId?: SortOrder
   }
 
   export type ViajesMaxOrderByAggregateInput = {
@@ -5277,6 +6858,8 @@ export namespace Prisma {
     longitudDesde?: SortOrder
     latitudHasta?: SortOrder
     longitudHasta?: SortOrder
+    fecha?: SortOrder
+    facturaId?: SortOrder
   }
 
   export type ViajesMinOrderByAggregateInput = {
@@ -5288,6 +6871,8 @@ export namespace Prisma {
     longitudDesde?: SortOrder
     latitudHasta?: SortOrder
     longitudHasta?: SortOrder
+    fecha?: SortOrder
+    facturaId?: SortOrder
   }
 
   export type ViajesSumOrderByAggregateInput = {
@@ -5298,6 +6883,7 @@ export namespace Prisma {
     longitudDesde?: SortOrder
     latitudHasta?: SortOrder
     longitudHasta?: SortOrder
+    facturaId?: SortOrder
   }
 
   export type EnumStatusViajesWithAggregatesFilter<$PrismaModel = never> = {
@@ -5326,15 +6912,50 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type PasajerosCountOrderByAggregateInput = {
     id?: SortOrder
     nombre?: SortOrder
     apellido?: SortOrder
     status?: SortOrder
+    ubicacionLatitud?: SortOrder
+    ubicacionLongitud?: SortOrder
+    nombreUbicacion?: SortOrder
   }
 
   export type PasajerosAvgOrderByAggregateInput = {
     id?: SortOrder
+    ubicacionLatitud?: SortOrder
+    ubicacionLongitud?: SortOrder
   }
 
   export type PasajerosMaxOrderByAggregateInput = {
@@ -5342,6 +6963,9 @@ export namespace Prisma {
     nombre?: SortOrder
     apellido?: SortOrder
     status?: SortOrder
+    ubicacionLatitud?: SortOrder
+    ubicacionLongitud?: SortOrder
+    nombreUbicacion?: SortOrder
   }
 
   export type PasajerosMinOrderByAggregateInput = {
@@ -5349,10 +6973,43 @@ export namespace Prisma {
     nombre?: SortOrder
     apellido?: SortOrder
     status?: SortOrder
+    ubicacionLatitud?: SortOrder
+    ubicacionLongitud?: SortOrder
+    nombreUbicacion?: SortOrder
   }
 
   export type PasajerosSumOrderByAggregateInput = {
     id?: SortOrder
+    ubicacionLatitud?: SortOrder
+    ubicacionLongitud?: SortOrder
+  }
+
+  export type FacturasCountOrderByAggregateInput = {
+    id?: SortOrder
+    monto?: SortOrder
+    fecha?: SortOrder
+  }
+
+  export type FacturasAvgOrderByAggregateInput = {
+    id?: SortOrder
+    monto?: SortOrder
+  }
+
+  export type FacturasMaxOrderByAggregateInput = {
+    id?: SortOrder
+    monto?: SortOrder
+    fecha?: SortOrder
+  }
+
+  export type FacturasMinOrderByAggregateInput = {
+    id?: SortOrder
+    monto?: SortOrder
+    fecha?: SortOrder
+  }
+
+  export type FacturasSumOrderByAggregateInput = {
+    id?: SortOrder
+    monto?: SortOrder
   }
 
   export type ViajesCreateNestedManyWithoutConductorInput = {
@@ -5383,6 +7040,10 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type ViajesUpdateManyWithoutConductorNestedInput = {
@@ -5433,6 +7094,12 @@ export namespace Prisma {
     connect?: ConductoresWhereUniqueInput
   }
 
+  export type FacturasCreateNestedOneWithoutViajesInput = {
+    create?: XOR<FacturasCreateWithoutViajesInput, FacturasUncheckedCreateWithoutViajesInput>
+    connectOrCreate?: FacturasCreateOrConnectWithoutViajesInput
+    connect?: FacturasWhereUniqueInput
+  }
+
   export type EnumStatusViajesFieldUpdateOperationsInput = {
     set?: $Enums.StatusViajes
   }
@@ -5443,6 +7110,10 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type PasajerosUpdateOneRequiredWithoutViajesNestedInput = {
@@ -5459,6 +7130,24 @@ export namespace Prisma {
     upsert?: ConductoresUpsertWithoutViajesInput
     connect?: ConductoresWhereUniqueInput
     update?: XOR<XOR<ConductoresUpdateToOneWithWhereWithoutViajesInput, ConductoresUpdateWithoutViajesInput>, ConductoresUncheckedUpdateWithoutViajesInput>
+  }
+
+  export type FacturasUpdateOneWithoutViajesNestedInput = {
+    create?: XOR<FacturasCreateWithoutViajesInput, FacturasUncheckedCreateWithoutViajesInput>
+    connectOrCreate?: FacturasCreateOrConnectWithoutViajesInput
+    upsert?: FacturasUpsertWithoutViajesInput
+    disconnect?: FacturasWhereInput | boolean
+    delete?: FacturasWhereInput | boolean
+    connect?: FacturasWhereUniqueInput
+    update?: XOR<XOR<FacturasUpdateToOneWithWhereWithoutViajesInput, FacturasUpdateWithoutViajesInput>, FacturasUncheckedUpdateWithoutViajesInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type ViajesCreateNestedManyWithoutPasajeroInput = {
@@ -5503,6 +7192,48 @@ export namespace Prisma {
     deleteMany?: ViajesScalarWhereInput | ViajesScalarWhereInput[]
   }
 
+  export type ViajesCreateNestedManyWithoutFacturaInput = {
+    create?: XOR<ViajesCreateWithoutFacturaInput, ViajesUncheckedCreateWithoutFacturaInput> | ViajesCreateWithoutFacturaInput[] | ViajesUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: ViajesCreateOrConnectWithoutFacturaInput | ViajesCreateOrConnectWithoutFacturaInput[]
+    createMany?: ViajesCreateManyFacturaInputEnvelope
+    connect?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+  }
+
+  export type ViajesUncheckedCreateNestedManyWithoutFacturaInput = {
+    create?: XOR<ViajesCreateWithoutFacturaInput, ViajesUncheckedCreateWithoutFacturaInput> | ViajesCreateWithoutFacturaInput[] | ViajesUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: ViajesCreateOrConnectWithoutFacturaInput | ViajesCreateOrConnectWithoutFacturaInput[]
+    createMany?: ViajesCreateManyFacturaInputEnvelope
+    connect?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+  }
+
+  export type ViajesUpdateManyWithoutFacturaNestedInput = {
+    create?: XOR<ViajesCreateWithoutFacturaInput, ViajesUncheckedCreateWithoutFacturaInput> | ViajesCreateWithoutFacturaInput[] | ViajesUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: ViajesCreateOrConnectWithoutFacturaInput | ViajesCreateOrConnectWithoutFacturaInput[]
+    upsert?: ViajesUpsertWithWhereUniqueWithoutFacturaInput | ViajesUpsertWithWhereUniqueWithoutFacturaInput[]
+    createMany?: ViajesCreateManyFacturaInputEnvelope
+    set?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+    disconnect?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+    delete?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+    connect?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+    update?: ViajesUpdateWithWhereUniqueWithoutFacturaInput | ViajesUpdateWithWhereUniqueWithoutFacturaInput[]
+    updateMany?: ViajesUpdateManyWithWhereWithoutFacturaInput | ViajesUpdateManyWithWhereWithoutFacturaInput[]
+    deleteMany?: ViajesScalarWhereInput | ViajesScalarWhereInput[]
+  }
+
+  export type ViajesUncheckedUpdateManyWithoutFacturaNestedInput = {
+    create?: XOR<ViajesCreateWithoutFacturaInput, ViajesUncheckedCreateWithoutFacturaInput> | ViajesCreateWithoutFacturaInput[] | ViajesUncheckedCreateWithoutFacturaInput[]
+    connectOrCreate?: ViajesCreateOrConnectWithoutFacturaInput | ViajesCreateOrConnectWithoutFacturaInput[]
+    upsert?: ViajesUpsertWithWhereUniqueWithoutFacturaInput | ViajesUpsertWithWhereUniqueWithoutFacturaInput[]
+    createMany?: ViajesCreateManyFacturaInputEnvelope
+    set?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+    disconnect?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+    delete?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+    connect?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
+    update?: ViajesUpdateWithWhereUniqueWithoutFacturaInput | ViajesUpdateWithWhereUniqueWithoutFacturaInput[]
+    updateMany?: ViajesUpdateManyWithWhereWithoutFacturaInput | ViajesUpdateManyWithWhereWithoutFacturaInput[]
+    deleteMany?: ViajesScalarWhereInput | ViajesScalarWhereInput[]
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -5544,6 +7275,20 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -5627,6 +7372,23 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumStatusViajesFilter<$PrismaModel = never> = {
     equals?: $Enums.StatusViajes | EnumStatusViajesFieldRefInput<$PrismaModel>
     in?: $Enums.StatusViajes[] | ListEnumStatusViajesFieldRefInput<$PrismaModel>
@@ -5643,6 +7405,17 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedEnumStatusViajesWithAggregatesFilter<$PrismaModel = never> = {
@@ -5671,13 +7444,56 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type ViajesCreateWithoutConductorInput = {
     status?: $Enums.StatusViajes
     latitudDesde: Decimal | DecimalJsLike | number | string
     longitudDesde: Decimal | DecimalJsLike | number | string
     latitudHasta: Decimal | DecimalJsLike | number | string
     longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
     pasajero: PasajerosCreateNestedOneWithoutViajesInput
+    factura?: FacturasCreateNestedOneWithoutViajesInput
   }
 
   export type ViajesUncheckedCreateWithoutConductorInput = {
@@ -5688,6 +7504,8 @@ export namespace Prisma {
     longitudDesde: Decimal | DecimalJsLike | number | string
     latitudHasta: Decimal | DecimalJsLike | number | string
     longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+    facturaId?: number | null
   }
 
   export type ViajesCreateOrConnectWithoutConductorInput = {
@@ -5728,12 +7546,17 @@ export namespace Prisma {
     longitudDesde?: DecimalFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFilter<"Viajes"> | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFilter<"Viajes"> | Date | string
+    facturaId?: IntNullableFilter<"Viajes"> | number | null
   }
 
   export type PasajerosCreateWithoutViajesInput = {
     nombre: string
     apellido: string
     status?: $Enums.StatusDisponibilidad
+    ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
   }
 
   export type PasajerosUncheckedCreateWithoutViajesInput = {
@@ -5741,6 +7564,9 @@ export namespace Prisma {
     nombre: string
     apellido: string
     status?: $Enums.StatusDisponibilidad
+    ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
   }
 
   export type PasajerosCreateOrConnectWithoutViajesInput = {
@@ -5754,6 +7580,7 @@ export namespace Prisma {
     status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
   }
 
   export type ConductoresUncheckedCreateWithoutViajesInput = {
@@ -5763,11 +7590,28 @@ export namespace Prisma {
     status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: string | null
   }
 
   export type ConductoresCreateOrConnectWithoutViajesInput = {
     where: ConductoresWhereUniqueInput
     create: XOR<ConductoresCreateWithoutViajesInput, ConductoresUncheckedCreateWithoutViajesInput>
+  }
+
+  export type FacturasCreateWithoutViajesInput = {
+    monto: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+  }
+
+  export type FacturasUncheckedCreateWithoutViajesInput = {
+    id?: number
+    monto: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+  }
+
+  export type FacturasCreateOrConnectWithoutViajesInput = {
+    where: FacturasWhereUniqueInput
+    create: XOR<FacturasCreateWithoutViajesInput, FacturasUncheckedCreateWithoutViajesInput>
   }
 
   export type PasajerosUpsertWithoutViajesInput = {
@@ -5785,6 +7629,9 @@ export namespace Prisma {
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
+    ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PasajerosUncheckedUpdateWithoutViajesInput = {
@@ -5792,6 +7639,9 @@ export namespace Prisma {
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
+    ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ConductoresUpsertWithoutViajesInput = {
@@ -5811,6 +7661,7 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ConductoresUncheckedUpdateWithoutViajesInput = {
@@ -5820,6 +7671,29 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    nombreUbicacion?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type FacturasUpsertWithoutViajesInput = {
+    update: XOR<FacturasUpdateWithoutViajesInput, FacturasUncheckedUpdateWithoutViajesInput>
+    create: XOR<FacturasCreateWithoutViajesInput, FacturasUncheckedCreateWithoutViajesInput>
+    where?: FacturasWhereInput
+  }
+
+  export type FacturasUpdateToOneWithWhereWithoutViajesInput = {
+    where?: FacturasWhereInput
+    data: XOR<FacturasUpdateWithoutViajesInput, FacturasUncheckedUpdateWithoutViajesInput>
+  }
+
+  export type FacturasUpdateWithoutViajesInput = {
+    monto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FacturasUncheckedUpdateWithoutViajesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    monto?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ViajesCreateWithoutPasajeroInput = {
@@ -5828,7 +7702,9 @@ export namespace Prisma {
     longitudDesde: Decimal | DecimalJsLike | number | string
     latitudHasta: Decimal | DecimalJsLike | number | string
     longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
     conductor: ConductoresCreateNestedOneWithoutViajesInput
+    factura?: FacturasCreateNestedOneWithoutViajesInput
   }
 
   export type ViajesUncheckedCreateWithoutPasajeroInput = {
@@ -5839,6 +7715,8 @@ export namespace Prisma {
     longitudDesde: Decimal | DecimalJsLike | number | string
     latitudHasta: Decimal | DecimalJsLike | number | string
     longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+    facturaId?: number | null
   }
 
   export type ViajesCreateOrConnectWithoutPasajeroInput = {
@@ -5867,6 +7745,55 @@ export namespace Prisma {
     data: XOR<ViajesUpdateManyMutationInput, ViajesUncheckedUpdateManyWithoutPasajeroInput>
   }
 
+  export type ViajesCreateWithoutFacturaInput = {
+    status?: $Enums.StatusViajes
+    latitudDesde: Decimal | DecimalJsLike | number | string
+    longitudDesde: Decimal | DecimalJsLike | number | string
+    latitudHasta: Decimal | DecimalJsLike | number | string
+    longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+    pasajero: PasajerosCreateNestedOneWithoutViajesInput
+    conductor: ConductoresCreateNestedOneWithoutViajesInput
+  }
+
+  export type ViajesUncheckedCreateWithoutFacturaInput = {
+    id?: number
+    pasajeroId: number
+    conductorId: number
+    status?: $Enums.StatusViajes
+    latitudDesde: Decimal | DecimalJsLike | number | string
+    longitudDesde: Decimal | DecimalJsLike | number | string
+    latitudHasta: Decimal | DecimalJsLike | number | string
+    longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+  }
+
+  export type ViajesCreateOrConnectWithoutFacturaInput = {
+    where: ViajesWhereUniqueInput
+    create: XOR<ViajesCreateWithoutFacturaInput, ViajesUncheckedCreateWithoutFacturaInput>
+  }
+
+  export type ViajesCreateManyFacturaInputEnvelope = {
+    data: ViajesCreateManyFacturaInput | ViajesCreateManyFacturaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ViajesUpsertWithWhereUniqueWithoutFacturaInput = {
+    where: ViajesWhereUniqueInput
+    update: XOR<ViajesUpdateWithoutFacturaInput, ViajesUncheckedUpdateWithoutFacturaInput>
+    create: XOR<ViajesCreateWithoutFacturaInput, ViajesUncheckedCreateWithoutFacturaInput>
+  }
+
+  export type ViajesUpdateWithWhereUniqueWithoutFacturaInput = {
+    where: ViajesWhereUniqueInput
+    data: XOR<ViajesUpdateWithoutFacturaInput, ViajesUncheckedUpdateWithoutFacturaInput>
+  }
+
+  export type ViajesUpdateManyWithWhereWithoutFacturaInput = {
+    where: ViajesScalarWhereInput
+    data: XOR<ViajesUpdateManyMutationInput, ViajesUncheckedUpdateManyWithoutFacturaInput>
+  }
+
   export type ViajesCreateManyConductorInput = {
     id?: number
     pasajeroId: number
@@ -5875,6 +7802,8 @@ export namespace Prisma {
     longitudDesde: Decimal | DecimalJsLike | number | string
     latitudHasta: Decimal | DecimalJsLike | number | string
     longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+    facturaId?: number | null
   }
 
   export type ViajesUpdateWithoutConductorInput = {
@@ -5883,7 +7812,9 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     pasajero?: PasajerosUpdateOneRequiredWithoutViajesNestedInput
+    factura?: FacturasUpdateOneWithoutViajesNestedInput
   }
 
   export type ViajesUncheckedUpdateWithoutConductorInput = {
@@ -5894,6 +7825,8 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    facturaId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ViajesUncheckedUpdateManyWithoutConductorInput = {
@@ -5904,6 +7837,8 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    facturaId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ViajesCreateManyPasajeroInput = {
@@ -5914,6 +7849,8 @@ export namespace Prisma {
     longitudDesde: Decimal | DecimalJsLike | number | string
     latitudHasta: Decimal | DecimalJsLike | number | string
     longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+    facturaId?: number | null
   }
 
   export type ViajesUpdateWithoutPasajeroInput = {
@@ -5922,7 +7859,9 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     conductor?: ConductoresUpdateOneRequiredWithoutViajesNestedInput
+    factura?: FacturasUpdateOneWithoutViajesNestedInput
   }
 
   export type ViajesUncheckedUpdateWithoutPasajeroInput = {
@@ -5933,6 +7872,8 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    facturaId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ViajesUncheckedUpdateManyWithoutPasajeroInput = {
@@ -5943,6 +7884,55 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    facturaId?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type ViajesCreateManyFacturaInput = {
+    id?: number
+    pasajeroId: number
+    conductorId: number
+    status?: $Enums.StatusViajes
+    latitudDesde: Decimal | DecimalJsLike | number | string
+    longitudDesde: Decimal | DecimalJsLike | number | string
+    latitudHasta: Decimal | DecimalJsLike | number | string
+    longitudHasta: Decimal | DecimalJsLike | number | string
+    fecha?: Date | string
+  }
+
+  export type ViajesUpdateWithoutFacturaInput = {
+    status?: EnumStatusViajesFieldUpdateOperationsInput | $Enums.StatusViajes
+    latitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+    pasajero?: PasajerosUpdateOneRequiredWithoutViajesNestedInput
+    conductor?: ConductoresUpdateOneRequiredWithoutViajesNestedInput
+  }
+
+  export type ViajesUncheckedUpdateWithoutFacturaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    pasajeroId?: IntFieldUpdateOperationsInput | number
+    conductorId?: IntFieldUpdateOperationsInput | number
+    status?: EnumStatusViajesFieldUpdateOperationsInput | $Enums.StatusViajes
+    latitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ViajesUncheckedUpdateManyWithoutFacturaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    pasajeroId?: IntFieldUpdateOperationsInput | number
+    conductorId?: IntFieldUpdateOperationsInput | number
+    status?: EnumStatusViajesFieldUpdateOperationsInput | $Enums.StatusViajes
+    latitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    fecha?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

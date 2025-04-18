@@ -9,9 +9,9 @@ export class ConductorController {
 
   @Get()
   @ApiOperation({ summary: 'Obtener conductores con filtros opcionales' })
-  @ApiQuery({ name: 'status', required: false, description: 'Estado del conductor (e.g., ACTIVO)' })
-  @ApiQuery({ name: 'latitud', required: false, description: 'Latitud para buscar conductores cercanos' })
-  @ApiQuery({ name: 'longitud', required: false, description: 'Longitud para buscar conductores cercanos' })
+  @ApiQuery({ name: 'status', required: false, description: 'Estado del conductor (e.g., ACTIVO, INACTIVO)' })
+  @ApiQuery({ name: 'latitud', required: false, description: 'Latitud para buscar conductores cercanos (e.g, 18.4885 (Jardin Botanico Nacional))' })
+  @ApiQuery({ name: 'longitud', required: false, description: 'Longitud para buscar conductores cercanos (e.g, -69.9606 (Jardin Botanico Nacional))' })
   @ApiQuery({ name: 'radio', required: false, description: 'Radio de búsqueda en kilómetros (por defecto: 3 km)' })
   @ApiResponse({ status: 200, description: 'Lista de conductores encontrados' })
   @ApiResponse({ status: 400, description: 'Parámetros inválidos' })
@@ -19,10 +19,10 @@ export class ConductorController {
     @Query() query: GetConductoresDto
   ) {
     const { latitud, longitud, radio, status } = query;
-    if (latitud && longitud) {
+    if (latitud || longitud) {
       return this.conductorService.getAllAlvaible3km(
-        Number(latitud),
-        Number(longitud),
+        latitud ? Number(latitud) : 0,
+        longitud ? Number(longitud) : 0,
         radio ? Number(radio) : 3, // Radio por defecto: 3 km
       );
     } else if (status) {
