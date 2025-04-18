@@ -121,7 +121,7 @@ exports.Prisma.ConductoresScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   apellido: 'apellido',
-  disponibilidadId: 'disponibilidadId',
+  status: 'status',
   ubicacionLatitud: 'ubicacionLatitud',
   ubicacionLongitud: 'ubicacionLongitud'
 };
@@ -144,11 +144,6 @@ exports.Prisma.PasajerosScalarFieldEnum = {
   status: 'status'
 };
 
-exports.Prisma.DisponibilidadScalarFieldEnum = {
-  id: 'id',
-  descripcion: 'descripcion'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -163,21 +158,20 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.StatusViajes = exports.$Enums.StatusViajes = {
-  EN_PROCESO: 'EN_PROCESO',
-  TERMINADO: 'TERMINADO'
-};
-
 exports.StatusDisponibilidad = exports.$Enums.StatusDisponibilidad = {
   ACTIVO: 'ACTIVO',
   INACTIVO: 'INACTIVO'
 };
 
+exports.StatusViajes = exports.$Enums.StatusViajes = {
+  EN_PROCESO: 'EN_PROCESO',
+  TERMINADO: 'TERMINADO'
+};
+
 exports.Prisma.ModelName = {
   Conductores: 'Conductores',
   Viajes: 'Viajes',
-  Pasajeros: 'Pasajeros',
-  Disponibilidad: 'Disponibilidad'
+  Pasajeros: 'Pasajeros'
 };
 
 /**

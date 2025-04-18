@@ -28,11 +28,6 @@ export type Viajes = $Result.DefaultSelection<Prisma.$ViajesPayload>
  * 
  */
 export type Pasajeros = $Result.DefaultSelection<Prisma.$PasajerosPayload>
-/**
- * Model Disponibilidad
- * 
- */
-export type Disponibilidad = $Result.DefaultSelection<Prisma.$DisponibilidadPayload>
 
 /**
  * Enums
@@ -217,16 +212,6 @@ export class PrismaClient<
     * ```
     */
   get pasajeros(): Prisma.PasajerosDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.disponibilidad`: Exposes CRUD operations for the **Disponibilidad** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Disponibilidads
-    * const disponibilidads = await prisma.disponibilidad.findMany()
-    * ```
-    */
-  get disponibilidad(): Prisma.DisponibilidadDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -669,8 +654,7 @@ export namespace Prisma {
   export const ModelName: {
     Conductores: 'Conductores',
     Viajes: 'Viajes',
-    Pasajeros: 'Pasajeros',
-    Disponibilidad: 'Disponibilidad'
+    Pasajeros: 'Pasajeros'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -689,7 +673,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "conductores" | "viajes" | "pasajeros" | "disponibilidad"
+      modelProps: "conductores" | "viajes" | "pasajeros"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -915,80 +899,6 @@ export namespace Prisma {
           }
         }
       }
-      Disponibilidad: {
-        payload: Prisma.$DisponibilidadPayload<ExtArgs>
-        fields: Prisma.DisponibilidadFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.DisponibilidadFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.DisponibilidadFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload>
-          }
-          findFirst: {
-            args: Prisma.DisponibilidadFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.DisponibilidadFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload>
-          }
-          findMany: {
-            args: Prisma.DisponibilidadFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload>[]
-          }
-          create: {
-            args: Prisma.DisponibilidadCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload>
-          }
-          createMany: {
-            args: Prisma.DisponibilidadCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.DisponibilidadCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload>[]
-          }
-          delete: {
-            args: Prisma.DisponibilidadDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload>
-          }
-          update: {
-            args: Prisma.DisponibilidadUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload>
-          }
-          deleteMany: {
-            args: Prisma.DisponibilidadDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.DisponibilidadUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.DisponibilidadUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload>[]
-          }
-          upsert: {
-            args: Prisma.DisponibilidadUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$DisponibilidadPayload>
-          }
-          aggregate: {
-            args: Prisma.DisponibilidadAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateDisponibilidad>
-          }
-          groupBy: {
-            args: Prisma.DisponibilidadGroupByArgs<ExtArgs>
-            result: $Utils.Optional<DisponibilidadGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.DisponibilidadCountArgs<ExtArgs>
-            result: $Utils.Optional<DisponibilidadCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1076,7 +986,6 @@ export namespace Prisma {
     conductores?: ConductoresOmit
     viajes?: ViajesOmit
     pasajeros?: PasajerosOmit
-    disponibilidad?: DisponibilidadOmit
   }
 
   /* Types for Logging */
@@ -1229,37 +1138,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type DisponibilidadCountOutputType
-   */
-
-  export type DisponibilidadCountOutputType = {
-    conductores: number
-  }
-
-  export type DisponibilidadCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    conductores?: boolean | DisponibilidadCountOutputTypeCountConductoresArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * DisponibilidadCountOutputType without action
-   */
-  export type DisponibilidadCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the DisponibilidadCountOutputType
-     */
-    select?: DisponibilidadCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * DisponibilidadCountOutputType without action
-   */
-  export type DisponibilidadCountOutputTypeCountConductoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ConductoresWhereInput
-  }
-
-
-  /**
    * Models
    */
 
@@ -1277,14 +1155,12 @@ export namespace Prisma {
 
   export type ConductoresAvgAggregateOutputType = {
     id: number | null
-    disponibilidadId: number | null
     ubicacionLatitud: Decimal | null
     ubicacionLongitud: Decimal | null
   }
 
   export type ConductoresSumAggregateOutputType = {
     id: number | null
-    disponibilidadId: number | null
     ubicacionLatitud: Decimal | null
     ubicacionLongitud: Decimal | null
   }
@@ -1293,7 +1169,7 @@ export namespace Prisma {
     id: number | null
     nombre: string | null
     apellido: string | null
-    disponibilidadId: number | null
+    status: $Enums.StatusDisponibilidad | null
     ubicacionLatitud: Decimal | null
     ubicacionLongitud: Decimal | null
   }
@@ -1302,7 +1178,7 @@ export namespace Prisma {
     id: number | null
     nombre: string | null
     apellido: string | null
-    disponibilidadId: number | null
+    status: $Enums.StatusDisponibilidad | null
     ubicacionLatitud: Decimal | null
     ubicacionLongitud: Decimal | null
   }
@@ -1311,7 +1187,7 @@ export namespace Prisma {
     id: number
     nombre: number
     apellido: number
-    disponibilidadId: number
+    status: number
     ubicacionLatitud: number
     ubicacionLongitud: number
     _all: number
@@ -1320,14 +1196,12 @@ export namespace Prisma {
 
   export type ConductoresAvgAggregateInputType = {
     id?: true
-    disponibilidadId?: true
     ubicacionLatitud?: true
     ubicacionLongitud?: true
   }
 
   export type ConductoresSumAggregateInputType = {
     id?: true
-    disponibilidadId?: true
     ubicacionLatitud?: true
     ubicacionLongitud?: true
   }
@@ -1336,7 +1210,7 @@ export namespace Prisma {
     id?: true
     nombre?: true
     apellido?: true
-    disponibilidadId?: true
+    status?: true
     ubicacionLatitud?: true
     ubicacionLongitud?: true
   }
@@ -1345,7 +1219,7 @@ export namespace Prisma {
     id?: true
     nombre?: true
     apellido?: true
-    disponibilidadId?: true
+    status?: true
     ubicacionLatitud?: true
     ubicacionLongitud?: true
   }
@@ -1354,7 +1228,7 @@ export namespace Prisma {
     id?: true
     nombre?: true
     apellido?: true
-    disponibilidadId?: true
+    status?: true
     ubicacionLatitud?: true
     ubicacionLongitud?: true
     _all?: true
@@ -1450,7 +1324,7 @@ export namespace Prisma {
     id: number
     nombre: string
     apellido: string
-    disponibilidadId: number
+    status: $Enums.StatusDisponibilidad
     ubicacionLatitud: Decimal | null
     ubicacionLongitud: Decimal | null
     _count: ConductoresCountAggregateOutputType | null
@@ -1478,10 +1352,9 @@ export namespace Prisma {
     id?: boolean
     nombre?: boolean
     apellido?: boolean
-    disponibilidadId?: boolean
+    status?: boolean
     ubicacionLatitud?: boolean
     ubicacionLongitud?: boolean
-    disponibilidad?: boolean | DisponibilidadDefaultArgs<ExtArgs>
     Viajes?: boolean | Conductores$ViajesArgs<ExtArgs>
     _count?: boolean | ConductoresCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["conductores"]>
@@ -1490,55 +1363,47 @@ export namespace Prisma {
     id?: boolean
     nombre?: boolean
     apellido?: boolean
-    disponibilidadId?: boolean
+    status?: boolean
     ubicacionLatitud?: boolean
     ubicacionLongitud?: boolean
-    disponibilidad?: boolean | DisponibilidadDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["conductores"]>
 
   export type ConductoresSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nombre?: boolean
     apellido?: boolean
-    disponibilidadId?: boolean
+    status?: boolean
     ubicacionLatitud?: boolean
     ubicacionLongitud?: boolean
-    disponibilidad?: boolean | DisponibilidadDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["conductores"]>
 
   export type ConductoresSelectScalar = {
     id?: boolean
     nombre?: boolean
     apellido?: boolean
-    disponibilidadId?: boolean
+    status?: boolean
     ubicacionLatitud?: boolean
     ubicacionLongitud?: boolean
   }
 
-  export type ConductoresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "disponibilidadId" | "ubicacionLatitud" | "ubicacionLongitud", ExtArgs["result"]["conductores"]>
+  export type ConductoresOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nombre" | "apellido" | "status" | "ubicacionLatitud" | "ubicacionLongitud", ExtArgs["result"]["conductores"]>
   export type ConductoresInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    disponibilidad?: boolean | DisponibilidadDefaultArgs<ExtArgs>
     Viajes?: boolean | Conductores$ViajesArgs<ExtArgs>
     _count?: boolean | ConductoresCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ConductoresIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    disponibilidad?: boolean | DisponibilidadDefaultArgs<ExtArgs>
-  }
-  export type ConductoresIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    disponibilidad?: boolean | DisponibilidadDefaultArgs<ExtArgs>
-  }
+  export type ConductoresIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ConductoresIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $ConductoresPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Conductores"
     objects: {
-      disponibilidad: Prisma.$DisponibilidadPayload<ExtArgs>
       Viajes: Prisma.$ViajesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nombre: string
       apellido: string
-      disponibilidadId: number
+      status: $Enums.StatusDisponibilidad
       ubicacionLatitud: Prisma.Decimal | null
       ubicacionLongitud: Prisma.Decimal | null
     }, ExtArgs["result"]["conductores"]>
@@ -1935,7 +1800,6 @@ export namespace Prisma {
    */
   export interface Prisma__ConductoresClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    disponibilidad<T extends DisponibilidadDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DisponibilidadDefaultArgs<ExtArgs>>): Prisma__DisponibilidadClient<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     Viajes<T extends Conductores$ViajesArgs<ExtArgs> = {}>(args?: Subset<T, Conductores$ViajesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ViajesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1969,7 +1833,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Conductores", 'Int'>
     readonly nombre: FieldRef<"Conductores", 'String'>
     readonly apellido: FieldRef<"Conductores", 'String'>
-    readonly disponibilidadId: FieldRef<"Conductores", 'Int'>
+    readonly status: FieldRef<"Conductores", 'StatusDisponibilidad'>
     readonly ubicacionLatitud: FieldRef<"Conductores", 'Decimal'>
     readonly ubicacionLongitud: FieldRef<"Conductores", 'Decimal'>
   }
@@ -2221,10 +2085,6 @@ export namespace Prisma {
      */
     data: ConductoresCreateManyInput | ConductoresCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConductoresIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2295,10 +2155,6 @@ export namespace Prisma {
      * Limit how many Conductores to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConductoresIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4665,1071 +4521,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Disponibilidad
-   */
-
-  export type AggregateDisponibilidad = {
-    _count: DisponibilidadCountAggregateOutputType | null
-    _avg: DisponibilidadAvgAggregateOutputType | null
-    _sum: DisponibilidadSumAggregateOutputType | null
-    _min: DisponibilidadMinAggregateOutputType | null
-    _max: DisponibilidadMaxAggregateOutputType | null
-  }
-
-  export type DisponibilidadAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type DisponibilidadSumAggregateOutputType = {
-    id: number | null
-  }
-
-  export type DisponibilidadMinAggregateOutputType = {
-    id: number | null
-    descripcion: string | null
-  }
-
-  export type DisponibilidadMaxAggregateOutputType = {
-    id: number | null
-    descripcion: string | null
-  }
-
-  export type DisponibilidadCountAggregateOutputType = {
-    id: number
-    descripcion: number
-    _all: number
-  }
-
-
-  export type DisponibilidadAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type DisponibilidadSumAggregateInputType = {
-    id?: true
-  }
-
-  export type DisponibilidadMinAggregateInputType = {
-    id?: true
-    descripcion?: true
-  }
-
-  export type DisponibilidadMaxAggregateInputType = {
-    id?: true
-    descripcion?: true
-  }
-
-  export type DisponibilidadCountAggregateInputType = {
-    id?: true
-    descripcion?: true
-    _all?: true
-  }
-
-  export type DisponibilidadAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Disponibilidad to aggregate.
-     */
-    where?: DisponibilidadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Disponibilidads to fetch.
-     */
-    orderBy?: DisponibilidadOrderByWithRelationInput | DisponibilidadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: DisponibilidadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Disponibilidads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Disponibilidads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Disponibilidads
-    **/
-    _count?: true | DisponibilidadCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: DisponibilidadAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: DisponibilidadSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: DisponibilidadMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: DisponibilidadMaxAggregateInputType
-  }
-
-  export type GetDisponibilidadAggregateType<T extends DisponibilidadAggregateArgs> = {
-        [P in keyof T & keyof AggregateDisponibilidad]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateDisponibilidad[P]>
-      : GetScalarType<T[P], AggregateDisponibilidad[P]>
-  }
-
-
-
-
-  export type DisponibilidadGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DisponibilidadWhereInput
-    orderBy?: DisponibilidadOrderByWithAggregationInput | DisponibilidadOrderByWithAggregationInput[]
-    by: DisponibilidadScalarFieldEnum[] | DisponibilidadScalarFieldEnum
-    having?: DisponibilidadScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: DisponibilidadCountAggregateInputType | true
-    _avg?: DisponibilidadAvgAggregateInputType
-    _sum?: DisponibilidadSumAggregateInputType
-    _min?: DisponibilidadMinAggregateInputType
-    _max?: DisponibilidadMaxAggregateInputType
-  }
-
-  export type DisponibilidadGroupByOutputType = {
-    id: number
-    descripcion: string
-    _count: DisponibilidadCountAggregateOutputType | null
-    _avg: DisponibilidadAvgAggregateOutputType | null
-    _sum: DisponibilidadSumAggregateOutputType | null
-    _min: DisponibilidadMinAggregateOutputType | null
-    _max: DisponibilidadMaxAggregateOutputType | null
-  }
-
-  type GetDisponibilidadGroupByPayload<T extends DisponibilidadGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<DisponibilidadGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof DisponibilidadGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], DisponibilidadGroupByOutputType[P]>
-            : GetScalarType<T[P], DisponibilidadGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type DisponibilidadSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    descripcion?: boolean
-    conductores?: boolean | Disponibilidad$conductoresArgs<ExtArgs>
-    _count?: boolean | DisponibilidadCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["disponibilidad"]>
-
-  export type DisponibilidadSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    descripcion?: boolean
-  }, ExtArgs["result"]["disponibilidad"]>
-
-  export type DisponibilidadSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    descripcion?: boolean
-  }, ExtArgs["result"]["disponibilidad"]>
-
-  export type DisponibilidadSelectScalar = {
-    id?: boolean
-    descripcion?: boolean
-  }
-
-  export type DisponibilidadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descripcion", ExtArgs["result"]["disponibilidad"]>
-  export type DisponibilidadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    conductores?: boolean | Disponibilidad$conductoresArgs<ExtArgs>
-    _count?: boolean | DisponibilidadCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type DisponibilidadIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type DisponibilidadIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $DisponibilidadPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Disponibilidad"
-    objects: {
-      conductores: Prisma.$ConductoresPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      descripcion: string
-    }, ExtArgs["result"]["disponibilidad"]>
-    composites: {}
-  }
-
-  type DisponibilidadGetPayload<S extends boolean | null | undefined | DisponibilidadDefaultArgs> = $Result.GetResult<Prisma.$DisponibilidadPayload, S>
-
-  type DisponibilidadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<DisponibilidadFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: DisponibilidadCountAggregateInputType | true
-    }
-
-  export interface DisponibilidadDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Disponibilidad'], meta: { name: 'Disponibilidad' } }
-    /**
-     * Find zero or one Disponibilidad that matches the filter.
-     * @param {DisponibilidadFindUniqueArgs} args - Arguments to find a Disponibilidad
-     * @example
-     * // Get one Disponibilidad
-     * const disponibilidad = await prisma.disponibilidad.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends DisponibilidadFindUniqueArgs>(args: SelectSubset<T, DisponibilidadFindUniqueArgs<ExtArgs>>): Prisma__DisponibilidadClient<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Disponibilidad that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {DisponibilidadFindUniqueOrThrowArgs} args - Arguments to find a Disponibilidad
-     * @example
-     * // Get one Disponibilidad
-     * const disponibilidad = await prisma.disponibilidad.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends DisponibilidadFindUniqueOrThrowArgs>(args: SelectSubset<T, DisponibilidadFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DisponibilidadClient<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Disponibilidad that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DisponibilidadFindFirstArgs} args - Arguments to find a Disponibilidad
-     * @example
-     * // Get one Disponibilidad
-     * const disponibilidad = await prisma.disponibilidad.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends DisponibilidadFindFirstArgs>(args?: SelectSubset<T, DisponibilidadFindFirstArgs<ExtArgs>>): Prisma__DisponibilidadClient<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Disponibilidad that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DisponibilidadFindFirstOrThrowArgs} args - Arguments to find a Disponibilidad
-     * @example
-     * // Get one Disponibilidad
-     * const disponibilidad = await prisma.disponibilidad.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends DisponibilidadFindFirstOrThrowArgs>(args?: SelectSubset<T, DisponibilidadFindFirstOrThrowArgs<ExtArgs>>): Prisma__DisponibilidadClient<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Disponibilidads that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DisponibilidadFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Disponibilidads
-     * const disponibilidads = await prisma.disponibilidad.findMany()
-     * 
-     * // Get first 10 Disponibilidads
-     * const disponibilidads = await prisma.disponibilidad.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const disponibilidadWithIdOnly = await prisma.disponibilidad.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends DisponibilidadFindManyArgs>(args?: SelectSubset<T, DisponibilidadFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Disponibilidad.
-     * @param {DisponibilidadCreateArgs} args - Arguments to create a Disponibilidad.
-     * @example
-     * // Create one Disponibilidad
-     * const Disponibilidad = await prisma.disponibilidad.create({
-     *   data: {
-     *     // ... data to create a Disponibilidad
-     *   }
-     * })
-     * 
-     */
-    create<T extends DisponibilidadCreateArgs>(args: SelectSubset<T, DisponibilidadCreateArgs<ExtArgs>>): Prisma__DisponibilidadClient<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Disponibilidads.
-     * @param {DisponibilidadCreateManyArgs} args - Arguments to create many Disponibilidads.
-     * @example
-     * // Create many Disponibilidads
-     * const disponibilidad = await prisma.disponibilidad.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends DisponibilidadCreateManyArgs>(args?: SelectSubset<T, DisponibilidadCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Disponibilidads and returns the data saved in the database.
-     * @param {DisponibilidadCreateManyAndReturnArgs} args - Arguments to create many Disponibilidads.
-     * @example
-     * // Create many Disponibilidads
-     * const disponibilidad = await prisma.disponibilidad.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Disponibilidads and only return the `id`
-     * const disponibilidadWithIdOnly = await prisma.disponibilidad.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends DisponibilidadCreateManyAndReturnArgs>(args?: SelectSubset<T, DisponibilidadCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Disponibilidad.
-     * @param {DisponibilidadDeleteArgs} args - Arguments to delete one Disponibilidad.
-     * @example
-     * // Delete one Disponibilidad
-     * const Disponibilidad = await prisma.disponibilidad.delete({
-     *   where: {
-     *     // ... filter to delete one Disponibilidad
-     *   }
-     * })
-     * 
-     */
-    delete<T extends DisponibilidadDeleteArgs>(args: SelectSubset<T, DisponibilidadDeleteArgs<ExtArgs>>): Prisma__DisponibilidadClient<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Disponibilidad.
-     * @param {DisponibilidadUpdateArgs} args - Arguments to update one Disponibilidad.
-     * @example
-     * // Update one Disponibilidad
-     * const disponibilidad = await prisma.disponibilidad.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends DisponibilidadUpdateArgs>(args: SelectSubset<T, DisponibilidadUpdateArgs<ExtArgs>>): Prisma__DisponibilidadClient<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Disponibilidads.
-     * @param {DisponibilidadDeleteManyArgs} args - Arguments to filter Disponibilidads to delete.
-     * @example
-     * // Delete a few Disponibilidads
-     * const { count } = await prisma.disponibilidad.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends DisponibilidadDeleteManyArgs>(args?: SelectSubset<T, DisponibilidadDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Disponibilidads.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DisponibilidadUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Disponibilidads
-     * const disponibilidad = await prisma.disponibilidad.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends DisponibilidadUpdateManyArgs>(args: SelectSubset<T, DisponibilidadUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Disponibilidads and returns the data updated in the database.
-     * @param {DisponibilidadUpdateManyAndReturnArgs} args - Arguments to update many Disponibilidads.
-     * @example
-     * // Update many Disponibilidads
-     * const disponibilidad = await prisma.disponibilidad.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Disponibilidads and only return the `id`
-     * const disponibilidadWithIdOnly = await prisma.disponibilidad.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends DisponibilidadUpdateManyAndReturnArgs>(args: SelectSubset<T, DisponibilidadUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Disponibilidad.
-     * @param {DisponibilidadUpsertArgs} args - Arguments to update or create a Disponibilidad.
-     * @example
-     * // Update or create a Disponibilidad
-     * const disponibilidad = await prisma.disponibilidad.upsert({
-     *   create: {
-     *     // ... data to create a Disponibilidad
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Disponibilidad we want to update
-     *   }
-     * })
-     */
-    upsert<T extends DisponibilidadUpsertArgs>(args: SelectSubset<T, DisponibilidadUpsertArgs<ExtArgs>>): Prisma__DisponibilidadClient<$Result.GetResult<Prisma.$DisponibilidadPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Disponibilidads.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DisponibilidadCountArgs} args - Arguments to filter Disponibilidads to count.
-     * @example
-     * // Count the number of Disponibilidads
-     * const count = await prisma.disponibilidad.count({
-     *   where: {
-     *     // ... the filter for the Disponibilidads we want to count
-     *   }
-     * })
-    **/
-    count<T extends DisponibilidadCountArgs>(
-      args?: Subset<T, DisponibilidadCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], DisponibilidadCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Disponibilidad.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DisponibilidadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends DisponibilidadAggregateArgs>(args: Subset<T, DisponibilidadAggregateArgs>): Prisma.PrismaPromise<GetDisponibilidadAggregateType<T>>
-
-    /**
-     * Group by Disponibilidad.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {DisponibilidadGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends DisponibilidadGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: DisponibilidadGroupByArgs['orderBy'] }
-        : { orderBy?: DisponibilidadGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, DisponibilidadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDisponibilidadGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Disponibilidad model
-   */
-  readonly fields: DisponibilidadFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Disponibilidad.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__DisponibilidadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    conductores<T extends Disponibilidad$conductoresArgs<ExtArgs> = {}>(args?: Subset<T, Disponibilidad$conductoresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConductoresPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Disponibilidad model
-   */
-  interface DisponibilidadFieldRefs {
-    readonly id: FieldRef<"Disponibilidad", 'Int'>
-    readonly descripcion: FieldRef<"Disponibilidad", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Disponibilidad findUnique
-   */
-  export type DisponibilidadFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-    /**
-     * Filter, which Disponibilidad to fetch.
-     */
-    where: DisponibilidadWhereUniqueInput
-  }
-
-  /**
-   * Disponibilidad findUniqueOrThrow
-   */
-  export type DisponibilidadFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-    /**
-     * Filter, which Disponibilidad to fetch.
-     */
-    where: DisponibilidadWhereUniqueInput
-  }
-
-  /**
-   * Disponibilidad findFirst
-   */
-  export type DisponibilidadFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-    /**
-     * Filter, which Disponibilidad to fetch.
-     */
-    where?: DisponibilidadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Disponibilidads to fetch.
-     */
-    orderBy?: DisponibilidadOrderByWithRelationInput | DisponibilidadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Disponibilidads.
-     */
-    cursor?: DisponibilidadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Disponibilidads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Disponibilidads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Disponibilidads.
-     */
-    distinct?: DisponibilidadScalarFieldEnum | DisponibilidadScalarFieldEnum[]
-  }
-
-  /**
-   * Disponibilidad findFirstOrThrow
-   */
-  export type DisponibilidadFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-    /**
-     * Filter, which Disponibilidad to fetch.
-     */
-    where?: DisponibilidadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Disponibilidads to fetch.
-     */
-    orderBy?: DisponibilidadOrderByWithRelationInput | DisponibilidadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Disponibilidads.
-     */
-    cursor?: DisponibilidadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Disponibilidads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Disponibilidads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Disponibilidads.
-     */
-    distinct?: DisponibilidadScalarFieldEnum | DisponibilidadScalarFieldEnum[]
-  }
-
-  /**
-   * Disponibilidad findMany
-   */
-  export type DisponibilidadFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-    /**
-     * Filter, which Disponibilidads to fetch.
-     */
-    where?: DisponibilidadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Disponibilidads to fetch.
-     */
-    orderBy?: DisponibilidadOrderByWithRelationInput | DisponibilidadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Disponibilidads.
-     */
-    cursor?: DisponibilidadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Disponibilidads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Disponibilidads.
-     */
-    skip?: number
-    distinct?: DisponibilidadScalarFieldEnum | DisponibilidadScalarFieldEnum[]
-  }
-
-  /**
-   * Disponibilidad create
-   */
-  export type DisponibilidadCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Disponibilidad.
-     */
-    data: XOR<DisponibilidadCreateInput, DisponibilidadUncheckedCreateInput>
-  }
-
-  /**
-   * Disponibilidad createMany
-   */
-  export type DisponibilidadCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Disponibilidads.
-     */
-    data: DisponibilidadCreateManyInput | DisponibilidadCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Disponibilidad createManyAndReturn
-   */
-  export type DisponibilidadCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * The data used to create many Disponibilidads.
-     */
-    data: DisponibilidadCreateManyInput | DisponibilidadCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Disponibilidad update
-   */
-  export type DisponibilidadUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Disponibilidad.
-     */
-    data: XOR<DisponibilidadUpdateInput, DisponibilidadUncheckedUpdateInput>
-    /**
-     * Choose, which Disponibilidad to update.
-     */
-    where: DisponibilidadWhereUniqueInput
-  }
-
-  /**
-   * Disponibilidad updateMany
-   */
-  export type DisponibilidadUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Disponibilidads.
-     */
-    data: XOR<DisponibilidadUpdateManyMutationInput, DisponibilidadUncheckedUpdateManyInput>
-    /**
-     * Filter which Disponibilidads to update
-     */
-    where?: DisponibilidadWhereInput
-    /**
-     * Limit how many Disponibilidads to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Disponibilidad updateManyAndReturn
-   */
-  export type DisponibilidadUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * The data used to update Disponibilidads.
-     */
-    data: XOR<DisponibilidadUpdateManyMutationInput, DisponibilidadUncheckedUpdateManyInput>
-    /**
-     * Filter which Disponibilidads to update
-     */
-    where?: DisponibilidadWhereInput
-    /**
-     * Limit how many Disponibilidads to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Disponibilidad upsert
-   */
-  export type DisponibilidadUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Disponibilidad to update in case it exists.
-     */
-    where: DisponibilidadWhereUniqueInput
-    /**
-     * In case the Disponibilidad found by the `where` argument doesn't exist, create a new Disponibilidad with this data.
-     */
-    create: XOR<DisponibilidadCreateInput, DisponibilidadUncheckedCreateInput>
-    /**
-     * In case the Disponibilidad was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<DisponibilidadUpdateInput, DisponibilidadUncheckedUpdateInput>
-  }
-
-  /**
-   * Disponibilidad delete
-   */
-  export type DisponibilidadDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-    /**
-     * Filter which Disponibilidad to delete.
-     */
-    where: DisponibilidadWhereUniqueInput
-  }
-
-  /**
-   * Disponibilidad deleteMany
-   */
-  export type DisponibilidadDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Disponibilidads to delete
-     */
-    where?: DisponibilidadWhereInput
-    /**
-     * Limit how many Disponibilidads to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Disponibilidad.conductores
-   */
-  export type Disponibilidad$conductoresArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Conductores
-     */
-    select?: ConductoresSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Conductores
-     */
-    omit?: ConductoresOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConductoresInclude<ExtArgs> | null
-    where?: ConductoresWhereInput
-    orderBy?: ConductoresOrderByWithRelationInput | ConductoresOrderByWithRelationInput[]
-    cursor?: ConductoresWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ConductoresScalarFieldEnum | ConductoresScalarFieldEnum[]
-  }
-
-  /**
-   * Disponibilidad without action
-   */
-  export type DisponibilidadDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Disponibilidad
-     */
-    select?: DisponibilidadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Disponibilidad
-     */
-    omit?: DisponibilidadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: DisponibilidadInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -5747,7 +4538,7 @@ export namespace Prisma {
     id: 'id',
     nombre: 'nombre',
     apellido: 'apellido',
-    disponibilidadId: 'disponibilidadId',
+    status: 'status',
     ubicacionLatitud: 'ubicacionLatitud',
     ubicacionLongitud: 'ubicacionLongitud'
   };
@@ -5777,14 +4568,6 @@ export namespace Prisma {
   };
 
   export type PasajerosScalarFieldEnum = (typeof PasajerosScalarFieldEnum)[keyof typeof PasajerosScalarFieldEnum]
-
-
-  export const DisponibilidadScalarFieldEnum: {
-    id: 'id',
-    descripcion: 'descripcion'
-  };
-
-  export type DisponibilidadScalarFieldEnum = (typeof DisponibilidadScalarFieldEnum)[keyof typeof DisponibilidadScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5845,6 +4628,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'StatusDisponibilidad'
+   */
+  export type EnumStatusDisponibilidadFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusDisponibilidad'>
+    
+
+
+  /**
+   * Reference to a field of type 'StatusDisponibilidad[]'
+   */
+  export type ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusDisponibilidad[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -5873,20 +4670,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'StatusDisponibilidad'
-   */
-  export type EnumStatusDisponibilidadFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusDisponibilidad'>
-    
-
-
-  /**
-   * Reference to a field of type 'StatusDisponibilidad[]'
-   */
-  export type ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusDisponibilidad[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -5910,10 +4693,9 @@ export namespace Prisma {
     id?: IntFilter<"Conductores"> | number
     nombre?: StringFilter<"Conductores"> | string
     apellido?: StringFilter<"Conductores"> | string
-    disponibilidadId?: IntFilter<"Conductores"> | number
+    status?: EnumStatusDisponibilidadFilter<"Conductores"> | $Enums.StatusDisponibilidad
     ubicacionLatitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
-    disponibilidad?: XOR<DisponibilidadScalarRelationFilter, DisponibilidadWhereInput>
     Viajes?: ViajesListRelationFilter
   }
 
@@ -5921,10 +4703,9 @@ export namespace Prisma {
     id?: SortOrder
     nombre?: SortOrder
     apellido?: SortOrder
-    disponibilidadId?: SortOrder
+    status?: SortOrder
     ubicacionLatitud?: SortOrderInput | SortOrder
     ubicacionLongitud?: SortOrderInput | SortOrder
-    disponibilidad?: DisponibilidadOrderByWithRelationInput
     Viajes?: ViajesOrderByRelationAggregateInput
   }
 
@@ -5935,10 +4716,9 @@ export namespace Prisma {
     NOT?: ConductoresWhereInput | ConductoresWhereInput[]
     nombre?: StringFilter<"Conductores"> | string
     apellido?: StringFilter<"Conductores"> | string
-    disponibilidadId?: IntFilter<"Conductores"> | number
+    status?: EnumStatusDisponibilidadFilter<"Conductores"> | $Enums.StatusDisponibilidad
     ubicacionLatitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
-    disponibilidad?: XOR<DisponibilidadScalarRelationFilter, DisponibilidadWhereInput>
     Viajes?: ViajesListRelationFilter
   }, "id">
 
@@ -5946,7 +4726,7 @@ export namespace Prisma {
     id?: SortOrder
     nombre?: SortOrder
     apellido?: SortOrder
-    disponibilidadId?: SortOrder
+    status?: SortOrder
     ubicacionLatitud?: SortOrderInput | SortOrder
     ubicacionLongitud?: SortOrderInput | SortOrder
     _count?: ConductoresCountOrderByAggregateInput
@@ -5963,7 +4743,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Conductores"> | number
     nombre?: StringWithAggregatesFilter<"Conductores"> | string
     apellido?: StringWithAggregatesFilter<"Conductores"> | string
-    disponibilidadId?: IntWithAggregatesFilter<"Conductores"> | number
+    status?: EnumStatusDisponibilidadWithAggregatesFilter<"Conductores"> | $Enums.StatusDisponibilidad
     ubicacionLatitud?: DecimalNullableWithAggregatesFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: DecimalNullableWithAggregatesFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
   }
@@ -6095,54 +4875,12 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadWithAggregatesFilter<"Pasajeros"> | $Enums.StatusDisponibilidad
   }
 
-  export type DisponibilidadWhereInput = {
-    AND?: DisponibilidadWhereInput | DisponibilidadWhereInput[]
-    OR?: DisponibilidadWhereInput[]
-    NOT?: DisponibilidadWhereInput | DisponibilidadWhereInput[]
-    id?: IntFilter<"Disponibilidad"> | number
-    descripcion?: StringFilter<"Disponibilidad"> | string
-    conductores?: ConductoresListRelationFilter
-  }
-
-  export type DisponibilidadOrderByWithRelationInput = {
-    id?: SortOrder
-    descripcion?: SortOrder
-    conductores?: ConductoresOrderByRelationAggregateInput
-  }
-
-  export type DisponibilidadWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: DisponibilidadWhereInput | DisponibilidadWhereInput[]
-    OR?: DisponibilidadWhereInput[]
-    NOT?: DisponibilidadWhereInput | DisponibilidadWhereInput[]
-    descripcion?: StringFilter<"Disponibilidad"> | string
-    conductores?: ConductoresListRelationFilter
-  }, "id">
-
-  export type DisponibilidadOrderByWithAggregationInput = {
-    id?: SortOrder
-    descripcion?: SortOrder
-    _count?: DisponibilidadCountOrderByAggregateInput
-    _avg?: DisponibilidadAvgOrderByAggregateInput
-    _max?: DisponibilidadMaxOrderByAggregateInput
-    _min?: DisponibilidadMinOrderByAggregateInput
-    _sum?: DisponibilidadSumOrderByAggregateInput
-  }
-
-  export type DisponibilidadScalarWhereWithAggregatesInput = {
-    AND?: DisponibilidadScalarWhereWithAggregatesInput | DisponibilidadScalarWhereWithAggregatesInput[]
-    OR?: DisponibilidadScalarWhereWithAggregatesInput[]
-    NOT?: DisponibilidadScalarWhereWithAggregatesInput | DisponibilidadScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Disponibilidad"> | number
-    descripcion?: StringWithAggregatesFilter<"Disponibilidad"> | string
-  }
-
   export type ConductoresCreateInput = {
     nombre: string
     apellido: string
+    status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
-    disponibilidad: DisponibilidadCreateNestedOneWithoutConductoresInput
     Viajes?: ViajesCreateNestedManyWithoutConductorInput
   }
 
@@ -6150,7 +4888,7 @@ export namespace Prisma {
     id?: number
     nombre: string
     apellido: string
-    disponibilidadId: number
+    status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
     Viajes?: ViajesUncheckedCreateNestedManyWithoutConductorInput
@@ -6159,9 +4897,9 @@ export namespace Prisma {
   export type ConductoresUpdateInput = {
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    disponibilidad?: DisponibilidadUpdateOneRequiredWithoutConductoresNestedInput
     Viajes?: ViajesUpdateManyWithoutConductorNestedInput
   }
 
@@ -6169,7 +4907,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
-    disponibilidadId?: IntFieldUpdateOperationsInput | number
+    status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     Viajes?: ViajesUncheckedUpdateManyWithoutConductorNestedInput
@@ -6179,7 +4917,7 @@ export namespace Prisma {
     id?: number
     nombre: string
     apellido: string
-    disponibilidadId: number
+    status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
   }
@@ -6187,6 +4925,7 @@ export namespace Prisma {
   export type ConductoresUpdateManyMutationInput = {
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
@@ -6195,7 +4934,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
-    disponibilidadId?: IntFieldUpdateOperationsInput | number
+    status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
@@ -6322,42 +5061,6 @@ export namespace Prisma {
     status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
   }
 
-  export type DisponibilidadCreateInput = {
-    descripcion: string
-    conductores?: ConductoresCreateNestedManyWithoutDisponibilidadInput
-  }
-
-  export type DisponibilidadUncheckedCreateInput = {
-    id?: number
-    descripcion: string
-    conductores?: ConductoresUncheckedCreateNestedManyWithoutDisponibilidadInput
-  }
-
-  export type DisponibilidadUpdateInput = {
-    descripcion?: StringFieldUpdateOperationsInput | string
-    conductores?: ConductoresUpdateManyWithoutDisponibilidadNestedInput
-  }
-
-  export type DisponibilidadUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    descripcion?: StringFieldUpdateOperationsInput | string
-    conductores?: ConductoresUncheckedUpdateManyWithoutDisponibilidadNestedInput
-  }
-
-  export type DisponibilidadCreateManyInput = {
-    id?: number
-    descripcion: string
-  }
-
-  export type DisponibilidadUpdateManyMutationInput = {
-    descripcion?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type DisponibilidadUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    descripcion?: StringFieldUpdateOperationsInput | string
-  }
-
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -6384,6 +5087,13 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type EnumStatusDisponibilidadFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusDisponibilidad | EnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusDisponibilidadFilter<$PrismaModel> | $Enums.StatusDisponibilidad
+  }
+
   export type DecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
@@ -6393,11 +5103,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-  }
-
-  export type DisponibilidadScalarRelationFilter = {
-    is?: DisponibilidadWhereInput
-    isNot?: DisponibilidadWhereInput
   }
 
   export type ViajesListRelationFilter = {
@@ -6419,14 +5124,13 @@ export namespace Prisma {
     id?: SortOrder
     nombre?: SortOrder
     apellido?: SortOrder
-    disponibilidadId?: SortOrder
+    status?: SortOrder
     ubicacionLatitud?: SortOrder
     ubicacionLongitud?: SortOrder
   }
 
   export type ConductoresAvgOrderByAggregateInput = {
     id?: SortOrder
-    disponibilidadId?: SortOrder
     ubicacionLatitud?: SortOrder
     ubicacionLongitud?: SortOrder
   }
@@ -6435,7 +5139,7 @@ export namespace Prisma {
     id?: SortOrder
     nombre?: SortOrder
     apellido?: SortOrder
-    disponibilidadId?: SortOrder
+    status?: SortOrder
     ubicacionLatitud?: SortOrder
     ubicacionLongitud?: SortOrder
   }
@@ -6444,14 +5148,13 @@ export namespace Prisma {
     id?: SortOrder
     nombre?: SortOrder
     apellido?: SortOrder
-    disponibilidadId?: SortOrder
+    status?: SortOrder
     ubicacionLatitud?: SortOrder
     ubicacionLongitud?: SortOrder
   }
 
   export type ConductoresSumOrderByAggregateInput = {
     id?: SortOrder
-    disponibilidadId?: SortOrder
     ubicacionLatitud?: SortOrder
     ubicacionLongitud?: SortOrder
   }
@@ -6488,6 +5191,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type EnumStatusDisponibilidadWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusDisponibilidad | EnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusDisponibilidadWithAggregatesFilter<$PrismaModel> | $Enums.StatusDisponibilidad
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusDisponibilidadFilter<$PrismaModel>
+    _max?: NestedEnumStatusDisponibilidadFilter<$PrismaModel>
   }
 
   export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6613,13 +5326,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type EnumStatusDisponibilidadFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusDisponibilidad | EnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusDisponibilidadFilter<$PrismaModel> | $Enums.StatusDisponibilidad
-  }
-
   export type PasajerosCountOrderByAggregateInput = {
     id?: SortOrder
     nombre?: SortOrder
@@ -6649,55 +5355,6 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type EnumStatusDisponibilidadWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusDisponibilidad | EnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusDisponibilidadWithAggregatesFilter<$PrismaModel> | $Enums.StatusDisponibilidad
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumStatusDisponibilidadFilter<$PrismaModel>
-    _max?: NestedEnumStatusDisponibilidadFilter<$PrismaModel>
-  }
-
-  export type ConductoresListRelationFilter = {
-    every?: ConductoresWhereInput
-    some?: ConductoresWhereInput
-    none?: ConductoresWhereInput
-  }
-
-  export type ConductoresOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type DisponibilidadCountOrderByAggregateInput = {
-    id?: SortOrder
-    descripcion?: SortOrder
-  }
-
-  export type DisponibilidadAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type DisponibilidadMaxOrderByAggregateInput = {
-    id?: SortOrder
-    descripcion?: SortOrder
-  }
-
-  export type DisponibilidadMinOrderByAggregateInput = {
-    id?: SortOrder
-    descripcion?: SortOrder
-  }
-
-  export type DisponibilidadSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type DisponibilidadCreateNestedOneWithoutConductoresInput = {
-    create?: XOR<DisponibilidadCreateWithoutConductoresInput, DisponibilidadUncheckedCreateWithoutConductoresInput>
-    connectOrCreate?: DisponibilidadCreateOrConnectWithoutConductoresInput
-    connect?: DisponibilidadWhereUniqueInput
-  }
-
   export type ViajesCreateNestedManyWithoutConductorInput = {
     create?: XOR<ViajesCreateWithoutConductorInput, ViajesUncheckedCreateWithoutConductorInput> | ViajesCreateWithoutConductorInput[] | ViajesUncheckedCreateWithoutConductorInput[]
     connectOrCreate?: ViajesCreateOrConnectWithoutConductorInput | ViajesCreateOrConnectWithoutConductorInput[]
@@ -6716,20 +5373,16 @@ export namespace Prisma {
     set?: string
   }
 
+  export type EnumStatusDisponibilidadFieldUpdateOperationsInput = {
+    set?: $Enums.StatusDisponibilidad
+  }
+
   export type NullableDecimalFieldUpdateOperationsInput = {
     set?: Decimal | DecimalJsLike | number | string | null
     increment?: Decimal | DecimalJsLike | number | string
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
-  }
-
-  export type DisponibilidadUpdateOneRequiredWithoutConductoresNestedInput = {
-    create?: XOR<DisponibilidadCreateWithoutConductoresInput, DisponibilidadUncheckedCreateWithoutConductoresInput>
-    connectOrCreate?: DisponibilidadCreateOrConnectWithoutConductoresInput
-    upsert?: DisponibilidadUpsertWithoutConductoresInput
-    connect?: DisponibilidadWhereUniqueInput
-    update?: XOR<XOR<DisponibilidadUpdateToOneWithWhereWithoutConductoresInput, DisponibilidadUpdateWithoutConductoresInput>, DisponibilidadUncheckedUpdateWithoutConductoresInput>
   }
 
   export type ViajesUpdateManyWithoutConductorNestedInput = {
@@ -6822,10 +5475,6 @@ export namespace Prisma {
     connect?: ViajesWhereUniqueInput | ViajesWhereUniqueInput[]
   }
 
-  export type EnumStatusDisponibilidadFieldUpdateOperationsInput = {
-    set?: $Enums.StatusDisponibilidad
-  }
-
   export type ViajesUpdateManyWithoutPasajeroNestedInput = {
     create?: XOR<ViajesCreateWithoutPasajeroInput, ViajesUncheckedCreateWithoutPasajeroInput> | ViajesCreateWithoutPasajeroInput[] | ViajesUncheckedCreateWithoutPasajeroInput[]
     connectOrCreate?: ViajesCreateOrConnectWithoutPasajeroInput | ViajesCreateOrConnectWithoutPasajeroInput[]
@@ -6854,48 +5503,6 @@ export namespace Prisma {
     deleteMany?: ViajesScalarWhereInput | ViajesScalarWhereInput[]
   }
 
-  export type ConductoresCreateNestedManyWithoutDisponibilidadInput = {
-    create?: XOR<ConductoresCreateWithoutDisponibilidadInput, ConductoresUncheckedCreateWithoutDisponibilidadInput> | ConductoresCreateWithoutDisponibilidadInput[] | ConductoresUncheckedCreateWithoutDisponibilidadInput[]
-    connectOrCreate?: ConductoresCreateOrConnectWithoutDisponibilidadInput | ConductoresCreateOrConnectWithoutDisponibilidadInput[]
-    createMany?: ConductoresCreateManyDisponibilidadInputEnvelope
-    connect?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-  }
-
-  export type ConductoresUncheckedCreateNestedManyWithoutDisponibilidadInput = {
-    create?: XOR<ConductoresCreateWithoutDisponibilidadInput, ConductoresUncheckedCreateWithoutDisponibilidadInput> | ConductoresCreateWithoutDisponibilidadInput[] | ConductoresUncheckedCreateWithoutDisponibilidadInput[]
-    connectOrCreate?: ConductoresCreateOrConnectWithoutDisponibilidadInput | ConductoresCreateOrConnectWithoutDisponibilidadInput[]
-    createMany?: ConductoresCreateManyDisponibilidadInputEnvelope
-    connect?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-  }
-
-  export type ConductoresUpdateManyWithoutDisponibilidadNestedInput = {
-    create?: XOR<ConductoresCreateWithoutDisponibilidadInput, ConductoresUncheckedCreateWithoutDisponibilidadInput> | ConductoresCreateWithoutDisponibilidadInput[] | ConductoresUncheckedCreateWithoutDisponibilidadInput[]
-    connectOrCreate?: ConductoresCreateOrConnectWithoutDisponibilidadInput | ConductoresCreateOrConnectWithoutDisponibilidadInput[]
-    upsert?: ConductoresUpsertWithWhereUniqueWithoutDisponibilidadInput | ConductoresUpsertWithWhereUniqueWithoutDisponibilidadInput[]
-    createMany?: ConductoresCreateManyDisponibilidadInputEnvelope
-    set?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-    disconnect?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-    delete?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-    connect?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-    update?: ConductoresUpdateWithWhereUniqueWithoutDisponibilidadInput | ConductoresUpdateWithWhereUniqueWithoutDisponibilidadInput[]
-    updateMany?: ConductoresUpdateManyWithWhereWithoutDisponibilidadInput | ConductoresUpdateManyWithWhereWithoutDisponibilidadInput[]
-    deleteMany?: ConductoresScalarWhereInput | ConductoresScalarWhereInput[]
-  }
-
-  export type ConductoresUncheckedUpdateManyWithoutDisponibilidadNestedInput = {
-    create?: XOR<ConductoresCreateWithoutDisponibilidadInput, ConductoresUncheckedCreateWithoutDisponibilidadInput> | ConductoresCreateWithoutDisponibilidadInput[] | ConductoresUncheckedCreateWithoutDisponibilidadInput[]
-    connectOrCreate?: ConductoresCreateOrConnectWithoutDisponibilidadInput | ConductoresCreateOrConnectWithoutDisponibilidadInput[]
-    upsert?: ConductoresUpsertWithWhereUniqueWithoutDisponibilidadInput | ConductoresUpsertWithWhereUniqueWithoutDisponibilidadInput[]
-    createMany?: ConductoresCreateManyDisponibilidadInputEnvelope
-    set?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-    disconnect?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-    delete?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-    connect?: ConductoresWhereUniqueInput | ConductoresWhereUniqueInput[]
-    update?: ConductoresUpdateWithWhereUniqueWithoutDisponibilidadInput | ConductoresUpdateWithWhereUniqueWithoutDisponibilidadInput[]
-    updateMany?: ConductoresUpdateManyWithWhereWithoutDisponibilidadInput | ConductoresUpdateManyWithWhereWithoutDisponibilidadInput[]
-    deleteMany?: ConductoresScalarWhereInput | ConductoresScalarWhereInput[]
-  }
-
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -6919,6 +5526,13 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedEnumStatusDisponibilidadFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusDisponibilidad | EnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusDisponibilidadFilter<$PrismaModel> | $Enums.StatusDisponibilidad
   }
 
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
@@ -6974,6 +5588,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStatusDisponibilidadWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusDisponibilidad | EnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusDisponibilidadWithAggregatesFilter<$PrismaModel> | $Enums.StatusDisponibilidad
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusDisponibilidadFilter<$PrismaModel>
+    _max?: NestedEnumStatusDisponibilidadFilter<$PrismaModel>
   }
 
   export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7047,37 +5671,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedEnumStatusDisponibilidadFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusDisponibilidad | EnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusDisponibilidadFilter<$PrismaModel> | $Enums.StatusDisponibilidad
-  }
-
-  export type NestedEnumStatusDisponibilidadWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.StatusDisponibilidad | EnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    in?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    notIn?: $Enums.StatusDisponibilidad[] | ListEnumStatusDisponibilidadFieldRefInput<$PrismaModel>
-    not?: NestedEnumStatusDisponibilidadWithAggregatesFilter<$PrismaModel> | $Enums.StatusDisponibilidad
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumStatusDisponibilidadFilter<$PrismaModel>
-    _max?: NestedEnumStatusDisponibilidadFilter<$PrismaModel>
-  }
-
-  export type DisponibilidadCreateWithoutConductoresInput = {
-    descripcion: string
-  }
-
-  export type DisponibilidadUncheckedCreateWithoutConductoresInput = {
-    id?: number
-    descripcion: string
-  }
-
-  export type DisponibilidadCreateOrConnectWithoutConductoresInput = {
-    where: DisponibilidadWhereUniqueInput
-    create: XOR<DisponibilidadCreateWithoutConductoresInput, DisponibilidadUncheckedCreateWithoutConductoresInput>
-  }
-
   export type ViajesCreateWithoutConductorInput = {
     status?: $Enums.StatusViajes
     latitudDesde: Decimal | DecimalJsLike | number | string
@@ -7105,26 +5698,6 @@ export namespace Prisma {
   export type ViajesCreateManyConductorInputEnvelope = {
     data: ViajesCreateManyConductorInput | ViajesCreateManyConductorInput[]
     skipDuplicates?: boolean
-  }
-
-  export type DisponibilidadUpsertWithoutConductoresInput = {
-    update: XOR<DisponibilidadUpdateWithoutConductoresInput, DisponibilidadUncheckedUpdateWithoutConductoresInput>
-    create: XOR<DisponibilidadCreateWithoutConductoresInput, DisponibilidadUncheckedCreateWithoutConductoresInput>
-    where?: DisponibilidadWhereInput
-  }
-
-  export type DisponibilidadUpdateToOneWithWhereWithoutConductoresInput = {
-    where?: DisponibilidadWhereInput
-    data: XOR<DisponibilidadUpdateWithoutConductoresInput, DisponibilidadUncheckedUpdateWithoutConductoresInput>
-  }
-
-  export type DisponibilidadUpdateWithoutConductoresInput = {
-    descripcion?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type DisponibilidadUncheckedUpdateWithoutConductoresInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    descripcion?: StringFieldUpdateOperationsInput | string
   }
 
   export type ViajesUpsertWithWhereUniqueWithoutConductorInput = {
@@ -7178,16 +5751,16 @@ export namespace Prisma {
   export type ConductoresCreateWithoutViajesInput = {
     nombre: string
     apellido: string
+    status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
-    disponibilidad: DisponibilidadCreateNestedOneWithoutConductoresInput
   }
 
   export type ConductoresUncheckedCreateWithoutViajesInput = {
     id?: number
     nombre: string
     apellido: string
-    disponibilidadId: number
+    status?: $Enums.StatusDisponibilidad
     ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
   }
@@ -7235,16 +5808,16 @@ export namespace Prisma {
   export type ConductoresUpdateWithoutViajesInput = {
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    disponibilidad?: DisponibilidadUpdateOneRequiredWithoutConductoresNestedInput
   }
 
   export type ConductoresUncheckedUpdateWithoutViajesInput = {
     id?: IntFieldUpdateOperationsInput | number
     nombre?: StringFieldUpdateOperationsInput | string
     apellido?: StringFieldUpdateOperationsInput | string
-    disponibilidadId?: IntFieldUpdateOperationsInput | number
+    status?: EnumStatusDisponibilidadFieldUpdateOperationsInput | $Enums.StatusDisponibilidad
     ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
@@ -7292,61 +5865,6 @@ export namespace Prisma {
   export type ViajesUpdateManyWithWhereWithoutPasajeroInput = {
     where: ViajesScalarWhereInput
     data: XOR<ViajesUpdateManyMutationInput, ViajesUncheckedUpdateManyWithoutPasajeroInput>
-  }
-
-  export type ConductoresCreateWithoutDisponibilidadInput = {
-    nombre: string
-    apellido: string
-    ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
-    ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
-    Viajes?: ViajesCreateNestedManyWithoutConductorInput
-  }
-
-  export type ConductoresUncheckedCreateWithoutDisponibilidadInput = {
-    id?: number
-    nombre: string
-    apellido: string
-    ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
-    ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
-    Viajes?: ViajesUncheckedCreateNestedManyWithoutConductorInput
-  }
-
-  export type ConductoresCreateOrConnectWithoutDisponibilidadInput = {
-    where: ConductoresWhereUniqueInput
-    create: XOR<ConductoresCreateWithoutDisponibilidadInput, ConductoresUncheckedCreateWithoutDisponibilidadInput>
-  }
-
-  export type ConductoresCreateManyDisponibilidadInputEnvelope = {
-    data: ConductoresCreateManyDisponibilidadInput | ConductoresCreateManyDisponibilidadInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ConductoresUpsertWithWhereUniqueWithoutDisponibilidadInput = {
-    where: ConductoresWhereUniqueInput
-    update: XOR<ConductoresUpdateWithoutDisponibilidadInput, ConductoresUncheckedUpdateWithoutDisponibilidadInput>
-    create: XOR<ConductoresCreateWithoutDisponibilidadInput, ConductoresUncheckedCreateWithoutDisponibilidadInput>
-  }
-
-  export type ConductoresUpdateWithWhereUniqueWithoutDisponibilidadInput = {
-    where: ConductoresWhereUniqueInput
-    data: XOR<ConductoresUpdateWithoutDisponibilidadInput, ConductoresUncheckedUpdateWithoutDisponibilidadInput>
-  }
-
-  export type ConductoresUpdateManyWithWhereWithoutDisponibilidadInput = {
-    where: ConductoresScalarWhereInput
-    data: XOR<ConductoresUpdateManyMutationInput, ConductoresUncheckedUpdateManyWithoutDisponibilidadInput>
-  }
-
-  export type ConductoresScalarWhereInput = {
-    AND?: ConductoresScalarWhereInput | ConductoresScalarWhereInput[]
-    OR?: ConductoresScalarWhereInput[]
-    NOT?: ConductoresScalarWhereInput | ConductoresScalarWhereInput[]
-    id?: IntFilter<"Conductores"> | number
-    nombre?: StringFilter<"Conductores"> | string
-    apellido?: StringFilter<"Conductores"> | string
-    disponibilidadId?: IntFilter<"Conductores"> | number
-    ubicacionLatitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
-    ubicacionLongitud?: DecimalNullableFilter<"Conductores"> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type ViajesCreateManyConductorInput = {
@@ -7425,39 +5943,6 @@ export namespace Prisma {
     longitudDesde?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     latitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     longitudHasta?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-  }
-
-  export type ConductoresCreateManyDisponibilidadInput = {
-    id?: number
-    nombre: string
-    apellido: string
-    ubicacionLatitud?: Decimal | DecimalJsLike | number | string | null
-    ubicacionLongitud?: Decimal | DecimalJsLike | number | string | null
-  }
-
-  export type ConductoresUpdateWithoutDisponibilidadInput = {
-    nombre?: StringFieldUpdateOperationsInput | string
-    apellido?: StringFieldUpdateOperationsInput | string
-    ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    Viajes?: ViajesUpdateManyWithoutConductorNestedInput
-  }
-
-  export type ConductoresUncheckedUpdateWithoutDisponibilidadInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    apellido?: StringFieldUpdateOperationsInput | string
-    ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    Viajes?: ViajesUncheckedUpdateManyWithoutConductorNestedInput
-  }
-
-  export type ConductoresUncheckedUpdateManyWithoutDisponibilidadInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    apellido?: StringFieldUpdateOperationsInput | string
-    ubicacionLatitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    ubicacionLongitud?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
   }
 
 

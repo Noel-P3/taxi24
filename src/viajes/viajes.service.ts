@@ -5,11 +5,17 @@ import {
 } from '@nestjs/common';
 import { Viajes } from 'generated/prisma';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CrearViajeDto } from './dto/viajesDto';
+import { CrearViajeDto } from './dto/crearViajeDTO';
 
 @Injectable()
 export class ViajesService {
     constructor(private prisma: PrismaService) { }
+
+    /**
+     * 
+     * @returns Promise<Viajes[]>
+     * @description Obtiene todos los viajes disponibles.
+     */
 
     async getAllAlvaible(): Promise<Viajes[]> {
         return this.prisma.viajes.findMany({
@@ -20,6 +26,20 @@ export class ViajesService {
             },
         });
     }
+
+    /**
+     * 
+     * @param documento CrearViajeDto
+     * @param documento.pasajeroId ID del pasajero.
+     * @param documento.conductorId ID del conductor.
+     * @param documento.longitudDesde Longitud de la ubicación de inicio.
+     * @param documento.latitudDesde Latitud de la ubicación de inicio.
+     * @param documento.longitudHasta Longitud de la ubicación de destino.
+     * @param documento.latitudHasta Latitud de la ubicación de destino.
+     * @description Crea un nuevo viaje con el estado 'EN_PROCESO'.
+     * @throws BadRequestException si ocurre un error al crear el viaje.
+     * @returns 
+     */
 
     async crearViaje(documento: CrearViajeDto): Promise<Viajes> {
         try {
@@ -38,8 +58,9 @@ export class ViajesService {
 
             return nuevoViaje;
         } catch (error) {
-            console.error('Error al crear viaje: ', error);
-            throw error;
+            throw new BadRequestException(
+                `Error al crear el viaje: ${error.message}`,
+            );
         }
     }
 
@@ -52,6 +73,10 @@ export class ViajesService {
      * @throws BadRequestException si el viaje no está en estado 'EN_PROCESO'.
      */
     async finalizarViaje(id: number): Promise<Viajes | null> {
+        if (isNaN(id)) {
+            throw new BadRequestException('ID inválido, valor debe ser numerico');
+        }
+
         const viaje = await this.prisma.viajes.findUnique({
             where: { id },
         });

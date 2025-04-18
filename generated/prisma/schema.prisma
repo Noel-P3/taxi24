@@ -15,13 +15,12 @@ datasource db {
 }
 
 model Conductores {
-  id                Int            @id @default(autoincrement())
-  nombre            String         @db.VarChar(75)
-  apellido          String         @db.VarChar(75)
-  disponibilidad    Disponibilidad @relation(fields: [disponibilidadId], references: [id])
-  disponibilidadId  Int
-  ubicacionLatitud  Decimal?       @db.Decimal(10, 7)
-  ubicacionLongitud Decimal?       @db.Decimal(10, 7)
+  id                Int                  @id @default(autoincrement())
+  nombre            String               @db.VarChar(75)
+  apellido          String               @db.VarChar(75)
+  status            StatusDisponibilidad @default(ACTIVO)
+  ubicacionLatitud  Decimal?             @db.Decimal(10, 7)
+  ubicacionLongitud Decimal?             @db.Decimal(10, 7)
   Viajes            Viajes[]
 }
 
@@ -44,12 +43,6 @@ model Pasajeros {
   apellido String               @db.VarChar(75)
   status   StatusDisponibilidad @default(ACTIVO)
   Viajes   Viajes[]
-}
-
-model Disponibilidad {
-  id          Int           @id @default(autoincrement())
-  descripcion String        @db.VarChar(250)
-  conductores Conductores[]
 }
 
 enum StatusDisponibilidad {

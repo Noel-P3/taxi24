@@ -1,26 +1,32 @@
-import { Injectable } from '@nestjs/common';
-import { Conductores, Pasajeros } from 'generated/prisma';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Conductores, Pasajeros, StatusDisponibilidad } from 'generated/prisma';
 import { getDistance } from 'geolib';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class PasajerosService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async getAll(): Promise<Pasajeros[]> {
     return this.prisma.pasajeros.findMany();
   }
 
-  async getAllAlvaible(): Promise<Pasajeros[]> {
+  async getAllAlvaible(status: StatusDisponibilidad): Promise<Pasajeros[]> {
     return this.prisma.pasajeros.findMany({
-      where: { status: 'ACTIVO' },
+      where: { status },
     });
   }
 
   async getById(id: number): Promise<Pasajeros | null> {
-    return this.prisma.pasajeros.findUnique({
+    const pasajero = await this.prisma.pasajeros.findUnique({
       where: { id },
     });
+
+    if (!pasajero) {
+      throw new NotFoundException(`Pasajero con ID ${id} no encontrado.`);
+    }
+
+    return pasajero;
   }
 
   async getAllNearest(
@@ -28,7 +34,7 @@ export class PasajerosService {
     longitude: number,
   ): Promise<Conductores[]> {
     const conductoresDisponibles = await this.prisma.conductores.findMany({
-      where: { disponibilidadId: 1 },
+      where: { status: 'ACTIVO' },
     });
 
     // Calcular la distancia para cada conductor disponible
