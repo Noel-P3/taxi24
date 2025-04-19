@@ -73,6 +73,12 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
    npm run start:prod
    ```
 
+10. **Ejecutar set de pruebas en POSTMAN**:
+   ```bash
+   Ejecutar en POSTMAN la coleccion del set de pruebas creado.
+   Set de pruebas ubicados en la carpeta "Tests"
+   ```
+
 ---
 
 ## Estructura del proyecto

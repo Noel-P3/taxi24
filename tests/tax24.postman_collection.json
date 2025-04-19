@@ -1,0 +1,1179 @@
+{
+	"info": {
+		"_postman_id": "bb424574-23d5-48d9-89c1-ce8193d2fa32",
+		"name": "tax24",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27565590"
+	},
+	"item": [
+		{
+			"name": "casos de prueba",
+			"item": [
+				{
+					"name": "todos los conductores",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Test to verify that all fields in the response body are not empty\r",
+									"pm.test(\"All fields in the response body are not empty\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    response.forEach((conductor) => {\r",
+									"        Object.values(conductor).forEach((value) => {\r",
+									"            pm.expect(value.toString()).to.not.be.empty;\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Extract a single random ID with status ACTIVO from the response\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    var activeConductors = responseData.filter(conductor => conductor.status === \"ACTIVO\");\r",
+									"    if (activeConductors.length > 0) {\r",
+									"        var randomIndex = Math.floor(Math.random() * activeConductors.length);\r",
+									"        pm.environment.set(\"randomID_conductor\", activeConductors[randomIndex].id);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/conductor/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"conductor",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "conductores disponible",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Test to verify that all fields in the response body are not empty\r",
+									"pm.test(\"All fields in the response body are not empty\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    response.forEach((conductor) => {\r",
+									"        Object.values(conductor).forEach((value) => {\r",
+									"            pm.expect(value.toString()).to.not.be.empty;\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/conductor/?status=ACTIVO",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"conductor",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ACTIVO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "conductor por id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Test to verify that all fields in the response body are not empty\r",
+									"pm.test(\"All fields in the response body are not empty\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response).to.not.be.an('array');\r",
+									"    Object.values(response).forEach((value) => {\r",
+									"        pm.expect(value.toString()).to.not.be.empty;\r",
+									"    });\r",
+									"});\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"ID field is present exactly 1 times in the response\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    let idCount = 0;\r",
+									"\r",
+									"    if (Array.isArray(responseData)) {\r",
+									"        responseData.forEach((conductor) => {\r",
+									"            if (conductor.hasOwnProperty('id')) {\r",
+									"                idCount++;\r",
+									"            }\r",
+									"        });\r",
+									"    } else {\r",
+									"        if (responseData.hasOwnProperty('id')) {\r",
+									"            idCount++;\r",
+									"        }\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(idCount).to.equal(1);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/conductor/{{randomID_conductor}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"conductor",
+								"{{randomID_conductor}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todos los pasajeros",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Test to verify that all fields in the response body are not empty\r",
+									"pm.test(\"All fields in the response body are not empty\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    response.forEach((conductor) => {\r",
+									"        Object.values(conductor).forEach((value) => {\r",
+									"            pm.expect(value.toString()).to.not.be.empty;\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Extract a single random ID with status ACTIVO from the response\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    var activeConductors = responseData.filter(conductor => conductor.status === \"ACTIVO\");\r",
+									"    if (activeConductors.length > 0) {\r",
+									"        var randomIndex = Math.floor(Math.random() * activeConductors.length);\r",
+									"        pm.environment.set(\"randomID_pasajeros\", activeConductors[randomIndex].id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/pasajeros/?status=ACTIVO",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"pasajeros",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ACTIVO",
+									"description": "ACTIVO,INACTIVO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pasajeros por id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Test to verify that all fields in the response body are not empty\r",
+									"pm.test(\"All fields in the response body are not empty\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response).to.not.be.an('array');\r",
+									"    Object.values(response).forEach((value) => {\r",
+									"        pm.expect(value.toString()).to.not.be.empty;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"ID field is present exactly 1 times in the response\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    let idCount = 0;\r",
+									"\r",
+									"    if (Array.isArray(responseData)) {\r",
+									"        responseData.forEach((pasajero) => {\r",
+									"            if (conductor.hasOwnProperty('id')) {\r",
+									"                idCount++;\r",
+									"            }\r",
+									"        });\r",
+									"    } else {\r",
+									"        if (responseData.hasOwnProperty('id')) {\r",
+									"            idCount++;\r",
+									"        }\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(idCount).to.equal(1);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/pasajeros/{{randomID_pasajeros}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"pasajeros",
+								"{{randomID_pasajeros}}"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "conductores cercanos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Test to verify that all fields in the response body are not empty\r",
+									"pm.test(\"All fields in the response body are not empty\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    response.forEach((conductor) => {\r",
+									"        Object.values(conductor).forEach((value) => {\r",
+									"            pm.expect(value.toString()).to.not.be.empty;\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"ID field is present exactly 3 times in the response\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    let idCount = 0;\r",
+									"\r",
+									"    responseData.forEach((pasajero) => {\r",
+									"        if (pasajero.hasOwnProperty('id')) {\r",
+									"            idCount++;\r",
+									"        }\r",
+									"    });\r",
+									"\r",
+									"    pm.expect(idCount).to.equal(3);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/pasajeros/conductoresCercanos/{{randomID_pasajeros}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pasajeros",
+								"conductoresCercanos",
+								"{{randomID_pasajeros}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear viaje",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"conductorId\": {{randomID_conductor}},\n  \"pasajeroId\": {{randomID_pasajeros}},\n  \"latitudDesde\": 18.555605,\n  \"longitudDesde\": -70.056565,\n  \"latitudHasta\": 18.483836,\n  \"longitudHasta\": -69.93655\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/viajes/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"viajes",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "viajes activos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status EN_PROCESO/EN_VIAJE\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    responseData.forEach((viaje) => {\r",
+									"        pm.expect(viaje.status).to.equal(\"EN_PROCESO\");\r",
+									"        pm.expect(viaje.conductor.status).to.equal(\"EN_VIAJE\");\r",
+									"        pm.expect(viaje.pasajero.status).to.equal(\"EN_VIAJE\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Save one of the IDs in a global variable\", function () {\r",
+									"   // Extracting the IDs from the response\r",
+									"const randomIndex = Math.floor(Math.random() * response.length);\r",
+									"const randomId = response[randomIndex].id;\r",
+									"\r",
+									"// Setting the random ID as a global variable\r",
+									"pm.environment.set(\"randomViajeId_activo\", randomId);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/viajes/activos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"viajes",
+								"activos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finalizar viajes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/viajes/finalizar/{{randomViajeId_activo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"viajes",
+								"finalizar",
+								"{{randomViajeId_activo}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "conductores",
+			"item": [
+				{
+					"name": "conductor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Test to verify that all fields in the response body are not empty\r",
+									"pm.test(\"All fields in the response body are not empty\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    response.forEach((conductor) => {\r",
+									"        Object.values(conductor).forEach((value) => {\r",
+									"            pm.expect(value.toString()).to.not.be.empty;\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Extract a single random ID with status ACTIVO from the response\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    var activeConductors = responseData.filter(conductor => conductor.status === \"ACTIVO\");\r",
+									"    if (activeConductors.length > 0) {\r",
+									"        var randomIndex = Math.floor(Math.random() * activeConductors.length);\r",
+									"        pm.globals.set(\"randomID_conductor\", activeConductors[randomIndex].id);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/conductor/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"conductor",
+								""
+							],
+							"query": [
+								{
+									"key": "longitud",
+									"value": "-69.9606",
+									"description": "SE DEBE DE INCLUIR  LATITUD.",
+									"disabled": true
+								},
+								{
+									"key": "latitud",
+									"value": "18.4885",
+									"description": "SE DEBE  DE INCLUIR  LONGITUD",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "INACTIVO",
+									"description": "INACTIVO, ACTIVO",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "conductor id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/conductor/163",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"conductor",
+								"163"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pasajeros",
+			"item": [
+				{
+					"name": "pasajeros",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Test to verify that all fields in the response body are not empty\r",
+									"pm.test(\"All fields in the response body are not empty\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    response.forEach((conductor) => {\r",
+									"        Object.values(conductor).forEach((value) => {\r",
+									"            pm.expect(value.toString()).to.not.be.empty;\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Extract a single random ID with status ACTIVO from the response\", function () {\r",
+									"    var responseData = pm.response.json();\r",
+									"    var activeConductors = responseData.filter(conductor => conductor.status === \"ACTIVO\");\r",
+									"    if (activeConductors.length > 0) {\r",
+									"        var randomIndex = Math.floor(Math.random() * activeConductors.length);\r",
+									"        pm.globals.set(\"randomID_pasajeros\", activeConductors[randomIndex].id);\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/pasajeros/?status=ACTIVO",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"pasajeros",
+								""
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ACTIVO",
+									"description": "ACTIVO,INACTIVO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pasajeros id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/pasajeros/184",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"pasajeros",
+								"184"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "conductores cercanos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"// Test to verify that all fields in the response body are not empty\r",
+									"pm.test(\"All fields in the response body are not empty\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    response.forEach((conductor) => {\r",
+									"        Object.values(conductor).forEach((value) => {\r",
+									"            pm.expect(value.toString()).to.not.be.empty;\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"ID field is present exactly 3 times in the response\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    let idCount = 0;\r",
+									"\r",
+									"    responseData.forEach((pasajero) => {\r",
+									"        if (pasajero.hasOwnProperty('id')) {\r",
+									"            idCount++;\r",
+									"        }\r",
+									"    });\r",
+									"\r",
+									"    pm.expect(idCount).to.equal(3);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/pasajeros/conductoresCercanos/{{randomID_pasajeros}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"pasajeros",
+								"conductoresCercanos",
+								"{{randomID_pasajeros}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "viajes",
+			"item": [
+				{
+					"name": "viajes\\crear",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"conductorId\": {{randomID_conductor}},\n  \"pasajeroId\": {{randomID_pasajeros}},\n  \"latitudDesde\": 18.555605,\n  \"longitudDesde\": -70.056565,\n  \"latitudHasta\": 18.483836,\n  \"longitudHasta\": -69.93655\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/viajes/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"viajes",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "viajes activos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status EN_PROCESO/EN_VIAJE\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    responseData.forEach((viaje) => {\r",
+									"        pm.expect(viaje.status).to.equal(\"EN_PROCESO\");\r",
+									"        pm.expect(viaje.conductor.status).to.equal(\"EN_VIAJE\");\r",
+									"        pm.expect(viaje.pasajero.status).to.equal(\"EN_VIAJE\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Save one of the IDs in a global variable\", function () {\r",
+									"   // Extracting the IDs from the response\r",
+									"const randomIndex = Math.floor(Math.random() * response.length);\r",
+									"const randomId = response[randomIndex].id;\r",
+									"\r",
+									"// Setting the random ID as a global variable\r",
+									"pm.globals.set(\"randomViajeId_activo\", randomId);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/viajes/activos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"viajes",
+								"activos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finalizar viajes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response includes a valid facturaId\", function () {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.facturaId).to.not.be.null.and.to.not.be.undefined;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/viajes/finalizar/{{randomViajeId_activo}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"viajes",
+								"finalizar",
+								"{{randomViajeId_activo}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "randomID_conductor",
+			"value": ""
+		},
+		{
+			"key": "randomID_pasajeros",
+			"value": ""
+		},
+		{
+			"key": "randomViajeId_activo",
+			"value": ""
+		}
+	]
+}
