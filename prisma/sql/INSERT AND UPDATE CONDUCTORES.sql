@@ -15,7 +15,7 @@ DELETE FROM
 INSERT INTO
     public."Conductores"(nombre, apellido, status)
 VALUES
-    ('Juan', 'Perez', 'ACTIVO');
+    ('Juan', 'Perez', 'INACTIVO');
 
 INSERT INTO
     public."Conductores"(nombre, apellido, status)
@@ -30,7 +30,7 @@ VALUES
 INSERT INTO
     public."Conductores"(nombre, apellido, status)
 VALUES
-    ('Ana', 'Gomez', 'ACTIVO');
+    ('Ana', 'Gomez', 'INACTIVO');
 
 INSERT INTO
     public."Conductores"(nombre, apellido, status)
@@ -45,12 +45,12 @@ VALUES
 INSERT INTO
     public."Conductores"(nombre, apellido, status)
 VALUES
-    ('Pedro', 'Lopez', 'ACTIVO');
+    ('Pedro', 'Lopez', 'INACTIVO');
 
 INSERT INTO
     public."Conductores"(nombre, apellido, status)
 VALUES
-    ('Laura', 'Sanchez', 'ACTIVO');
+    ('Laura', 'Sanchez', 'INACTIVO');
 
 INSERT INTO
     public."Conductores"(nombre, apellido, status)
@@ -315,7 +315,8 @@ INSERT INTO
 VALUES
     ('Soledad', 'Zayas', 'ACTIVO');
 
-DO $ $ DECLARE conductor_record RECORD;
+DO $$ 
+DECLARE conductor_record RECORD;
 
 ubicacion_aleatoria INTEGER;
 
@@ -358,4 +359,4 @@ WHERE
 
 END LOOP;
 
-END $ $;
+END $$;

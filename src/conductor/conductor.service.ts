@@ -5,7 +5,7 @@ import { getDistance } from 'geolib';
 
 @Injectable()
 export class ConductorService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async getAll(): Promise<Conductores[]> {
     return this.prisma.conductores.findMany({});
@@ -13,7 +13,7 @@ export class ConductorService {
 
   async getAllAlvaible(status: StatusDisponibilidad): Promise<Conductores[]> {
     const conductores = await this.prisma.conductores.findMany({
-      where: { status: status },
+      where: { status },
     });
 
     return conductores;
@@ -24,10 +24,11 @@ export class ConductorService {
     longitud: number,
     radiusKm: number = 3,
   ): Promise<Conductores[]> {
+    if (isNaN(latitud))
+      throw new BadRequestException('Latitud esta vacio o es invalido');
+    if (isNaN(longitud))
+      throw new BadRequestException('Logintud esta vacio o es invalido');
 
-    if (isNaN(latitud) || isNaN(longitud)) {
-      throw new BadRequestException('Latitud y longitud inválidas');
-    }
     if (radiusKm <= 0) {
       throw new BadRequestException('El radio debe ser mayor que 0');
     }
@@ -45,16 +46,17 @@ export class ConductorService {
           latitude: latitud,
           longitude: longitud,
         },
-        { latitude: Number(driver.ubicacionLatitud), longitude: Number(driver.ubicacionLongitud) },
+        {
+          latitude: Number(driver.ubicacionLatitud),
+          longitude: Number(driver.ubicacionLongitud),
+        },
       );
-      console.log(driver.ubicacionLatitud, driver.ubicacionLongitud, 'vs', latitud, longitud);
-      console.log(distance / 1000);
+
       return distance / 1000 <= radiusKm;
     });
   }
 
   async getById(id: number): Promise<Conductores | null> {
-
     if (isNaN(id)) {
       throw new BadRequestException('ID inválido, valor debe ser numerico');
     }

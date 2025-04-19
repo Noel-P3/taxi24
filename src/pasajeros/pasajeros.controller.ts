@@ -5,17 +5,21 @@ import { GetPasajerosDTO } from './dto/getPasajerosDTO';
 
 @Controller('pasajeros')
 export class PasajerosController {
-  constructor(private readonly pasajerosService: PasajerosService) { }
+  constructor(private readonly pasajerosService: PasajerosService) {}
 
   @Get()
   @ApiOperation({ summary: 'Obtener pasajeros con filtros opcionales' })
-  @ApiQuery({ name: 'status', required: false, description: 'Estado del pasajero (e.g., ACTIVO, INACTIVO)' })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    description: 'Estado del pasajero (e.g., ACTIVO, INACTIVO)',
+  })
   @ApiResponse({ status: 200, description: 'Lista de pasajeros encontrados' })
   @ApiResponse({ status: 400, description: 'Parámetros inválidos' })
   async getPasajeros(@Query() query: GetPasajerosDTO) {
     const { status } = query;
     if (status) {
-      return this.pasajerosService.getAllAlvaible(status as 'ACTIVO' | 'INACTIVO');
+      return this.pasajerosService.getAllAlvaible(status);
     }
     return this.pasajerosService.getAll();
   }
@@ -30,7 +34,9 @@ export class PasajerosController {
   }
 
   @Get('conductoresCercanos/:id')
-  @ApiOperation({ summary: 'Obtener los 3 conductores más cercanos al pasajero' })
+  @ApiOperation({
+    summary: 'Obtener los 3 conductores más cercanos al pasajero',
+  })
   @ApiResponse({ status: 200, description: 'Lista de conductores encontrados' })
   @ApiResponse({ status: 404, description: 'Pasajero no encontrado' })
   @ApiResponse({ status: 400, description: 'Parámetros inválidos' })

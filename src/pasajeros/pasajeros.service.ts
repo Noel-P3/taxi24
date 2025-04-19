@@ -1,11 +1,15 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Conductores, Pasajeros, StatusDisponibilidad } from 'generated/prisma';
 import { getDistance } from 'geolib';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class PasajerosService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async getAll(): Promise<Pasajeros[]> {
     return this.prisma.pasajeros.findMany();
@@ -61,20 +65,19 @@ export class PasajerosService {
           longitude: Number(driver.ubicacionLongitud),
         },
       );
-      return { ...driver, distance }; // Agregar la distancia al objeto del conductor
+      return { ...driver, distance };
     });
 
-    // Ordenar los conductores por distancia ascendente
-    const conductoresOrdenados = conductoresConDistancia.sort((a, b) => a.distance - b.distance);
+    const conductoresOrdenados = conductoresConDistancia.sort(
+      (a, b) => a.distance - b.distance,
+    );
 
-    // Tomar los 3 conductores más cercanos
     const top3Conductores = conductoresOrdenados.slice(0, 3);
 
     if (top3Conductores.length === 0) {
       throw new NotFoundException('No hay conductores cercanos disponibles.');
     }
 
-    return top3Conductores.map(({ distance, ...driver }) => driver); // Retornar los conductores sin la propiedad "distance"
+    return top3Conductores.map(({ ...driver }) => driver);
   }
-
 }

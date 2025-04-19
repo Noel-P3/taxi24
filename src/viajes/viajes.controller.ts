@@ -1,11 +1,17 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ViajesService } from './viajes.service';
 import { CrearViajeDto } from './dto/crearViajeDTO';
-import { ApiOperation, ApiBody, ApiCreatedResponse, ApiResponse, ApiParam } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiResponse,
+  ApiParam,
+} from '@nestjs/swagger';
 
 @Controller('viajes')
 export class ViajesController {
-  constructor(private readonly viajesService: ViajesService) { }
+  constructor(private readonly viajesService: ViajesService) {}
 
   @Get('/activos')
   @ApiOperation({ summary: 'Obtener todos los viajes activos' })
@@ -24,10 +30,10 @@ export class ViajesController {
         value: {
           conductorId: 1,
           pasajeroId: 2,
-          latitudDesde: 18.5556050,
-          longitudDesde: -70.0565650,
-          latitudHasta: 18.4838360,
-          longitudHasta: -69.9365500,
+          latitudDesde: 18.555605,
+          longitudDesde: -70.056565,
+          latitudHasta: 18.483836,
+          longitudHasta: -69.93655,
         } as CrearViajeDto,
       },
     },
@@ -42,8 +48,15 @@ export class ViajesController {
 
   @Patch('/finalizar/:id')
   @ApiOperation({ summary: 'Finalizar un viaje' })
-  @ApiParam({ name: 'id', description: 'ID del viaje a finalizar', type: 'integer' })
-  @ApiResponse({ status: 200, description: 'El viaje ha sido finalizado exitosamente' })
+  @ApiParam({
+    name: 'id',
+    description: 'ID del viaje a finalizar',
+    type: 'integer',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'El viaje ha sido finalizado exitosamente',
+  })
   @ApiResponse({ status: 404, description: 'Viaje no encontrado' })
   @ApiResponse({ status: 400, description: 'Parámetros inválidos' })
   async finalizaViaje(@Param('id') id: string) {
